@@ -23,7 +23,7 @@ class Pokedex:
         # Sauvegarde les données du Pokedex dans un fichier JSON
         with open('pokedex.json', 'w') as json_file:
             json.dump(self.encountered_pokemon, json_file)
-            print("Pokedex sauvegardé avec succès.")
+            print("Pokedex sauvegardé avec succès")
 
     def load_from_json(self):
         # Charge les données du fichier JSON dans le Pokedex
