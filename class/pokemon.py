@@ -36,5 +36,12 @@ pokemon1 = Pokemon("Salameche", 5, type_feu)
 type_eau = Type("Eau", 120, 25, 25)
 pokemon2 = Pokemon("Carapuce", 5, type_eau)
 
+type_terre = Type("Terre", 80, 40, 10)
+pokemon3 = Pokemon("Géodude", 10, type_terre)
+
+type_normal = Type("Normal", 50, 50, 50)
+pokemon4 = Pokemon("Rattata", 3, type_normal)
+
+
 # Combat entre les deux Pokémon
 pokemon1.attaquer(pokemon2)
