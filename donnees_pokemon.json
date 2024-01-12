@@ -1,0 +1,42 @@
+{
+  "pokemon1": {
+    "nom": "Salameche",
+    "niveau": 5,
+    "type": {
+      "nom": "Feu",
+      "points_de_vie": 100,
+      "puissance_attaque": 30,
+      "defense": 20
+    }
+  },
+  "pokemon2": {
+    "nom": "Carapuce",
+    "niveau": 5,
+    "type": {
+      "nom": "Eau",
+      "points_de_vie": 120,
+      "puissance_attaque": 25,
+      "defense": 25
+    }
+  },
+  "pokemon3": {
+    "nom": "G\u00e9odude",
+    "niveau": 10,
+    "type": {
+      "nom": "Terre",
+      "points_de_vie": 80,
+      "puissance_attaque": 40,
+      "defense": 10
+    }
+  },
+  "pokemon4": {
+    "nom": "Rattata",
+    "niveau": 3,
+    "type": {
+      "nom": "Normal",
+      "points_de_vie": 50,
+      "puissance_attaque": 50,
+      "defense": 50
+    }
+  }
+}

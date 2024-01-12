@@ -1,5 +1,6 @@
 import pygame
 import sys
+from pokemon import pokemon.py
 
 # Initialisation de Pygame
 pygame.init()

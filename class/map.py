@@ -45,7 +45,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Pokemon Map")
 
 # Création de la carte avec une image JPG et un facteur de zoom plus grand
-map_image_path = "images/map.jpg"
+map_image_path = "images/Map.jpg"
 pokemon_map = Map(map_image_path, screen_width, screen_height, zoom_factor=3.0)
 
 # Création du joueur avec une image PNG et des dimensions spécifiques
