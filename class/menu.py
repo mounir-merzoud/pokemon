@@ -1,6 +1,6 @@
 import pygame
 import sys
-from pekemon.py import pokemon 
+
 # Initialisation de Pygame
 pygame.init()
 
