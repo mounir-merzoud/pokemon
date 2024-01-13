@@ -1,7 +1,6 @@
 import pygame
 import sys
-from pokemon import pokemon.py
-
+from pekemon.py import pokemon 
 # Initialisation de Pygame
 pygame.init()
 
@@ -35,7 +34,7 @@ def nouvelle_partie():
 
 # Fonction pour choisir les Pokémon
 def choisir_pokemon():
-    print("Choisir mes Pokémon")
+    input
 
 # Fonction pour accéder au Pokédex
 def acceder_pokedex():
