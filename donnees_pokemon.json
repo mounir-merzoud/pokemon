@@ -7,7 +7,8 @@
       "points_de_vie": 100,
       "puissance_attaque": 30,
       "defense": 20
-    }
+    },
+    "images": "p1.png"
   },
   "pokemon2": {
     "nom": "Carapuce",
@@ -17,7 +18,8 @@
       "points_de_vie": 120,
       "puissance_attaque": 25,
       "defense": 25
-    }
+    },
+    "images": "p2.png"
   },
   "pokemon3": {
     "nom": "G\u00e9odude",
@@ -27,7 +29,8 @@
       "points_de_vie": 80,
       "puissance_attaque": 40,
       "defense": 10
-    }
+    },
+    "images": "p3.jpg"
   },
   "pokemon4": {
     "nom": "Rattata",
@@ -37,6 +40,161 @@
       "points_de_vie": 50,
       "puissance_attaque": 50,
       "defense": 50
-    }
+    },
+    "images": "p4.png"
+  },
+  "pokemon5": {
+    "nom": "Pikachu",
+    "niveau": 8,
+    "type": {
+      "nom": "Électrique",
+      "points_de_vie": 60,
+      "puissance_attaque": 55,
+      "defense": 30
+    },
+    "images": "p5.png"
+  },
+  "pokemon6": {
+    "nom": "Bulbizarre",
+    "niveau": 7,
+    "type": {
+      "nom": "Plante",
+      "points_de_vie": 80,
+      "puissance_attaque": 35,
+      "defense": 25
+    },
+    "images": "p6.png"
+  },
+  "pokemon7": {
+    "nom": "Squirtle",
+    "niveau": 6,
+    "type": {
+      "nom": "Eau",
+      "points_de_vie": 90,
+      "puissance_attaque": 40,
+      "defense": 30
+    },
+    "images": "p7.png"
+  },
+  "pokemon8": {
+    "nom": "Jigglypuff",
+    "niveau": 4,
+    "type": {
+      "nom": "Fée",
+      "points_de_vie": 70,
+      "puissance_attaque": 20,
+      "defense": 15
+    },
+    "images": "p8.png"
+  },
+  "pokemon9": {
+    "nom": "Meowth",
+    "niveau": 5,
+    "type": {
+      "nom": "Normal",
+      "points_de_vie": 60,
+      "puissance_attaque": 45,
+      "defense": 25
+    },
+    "images": "p9.png"
+  },
+  "pokemon10": {
+    "nom": "Psyduck",
+    "niveau": 7,
+    "type": {
+      "nom": "Eau",
+      "points_de_vie": 80,
+      "puissance_attaque": 35,
+      "defense": 30
+    },
+    "images": "p10.png"
+  },
+  "pokemon11": {
+    "nom": "Geodude",
+    "niveau": 9,
+    "type": {
+      "nom": "Roche",
+      "points_de_vie": 70,
+      "puissance_attaque": 40,
+      "defense": 25
+    },
+    "images": "p11.png"
+  },
+  "pokemon12": {
+    "nom": "Magnemite",
+    "niveau": 5,
+    "type": {
+      "nom": "Électrique",
+      "points_de_vie": 40,
+      "puissance_attaque": 60,
+      "defense": 30
+    },
+    "images": "p12.png"
+  },
+  "pokemon13": {
+    "nom": "Clefairy",
+    "niveau": 6,
+    "type": {
+      "nom": "Fée",
+      "points_de_vie": 60,
+      "puissance_attaque": 25,
+      "defense": 30
+    },
+    "images": "p13.png"
+  },
+  "pokemon14": {
+    "nom": "Vulpix",
+    "niveau": 5,
+    "type": {
+      "nom": "Feu",
+      "points_de_vie": 50,
+      "puissance_attaque": 35,
+      "defense": 20
+    },
+    "images": "p14.png"
+  },
+  "pokemon15": {
+    "nom": "Ekans",
+    "niveau": 8,
+    "type": {
+      "nom": "Poison",
+      "points_de_vie": 55,
+      "puissance_attaque": 40,
+      "defense": 25
+    },
+    "images": "p15.png"
+  },
+  "pokemon16": {
+    "nom": "Nidoran",
+    "niveau": 6,
+    "type": {
+      "nom": "Poison",
+      "points_de_vie": 45,
+      "puissance_attaque": 50,
+      "defense": 25
+    },
+    "images": "p16.png"
+  },
+  "pokemon17": {
+    "nom": "Jigglypuff",
+    "niveau": 7,
+    "type": {
+      "nom": "Fée",
+      "points_de_vie": 70,
+      "puissance_attaque": 25,
+      "defense": 30
+    },
+    "images": "p17.png"
+  },
+  "pokemon18": {
+    "nom": "Oddish",
+    "niveau": 5,
+    "type": {
+      "nom": "Plante",
+      "points_de_vie": 55,
+      "puissance_attaque": 30,
+      "defense": 25
+    },
+    "images": "p18.png"
   }
 }
