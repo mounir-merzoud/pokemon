@@ -4,7 +4,6 @@ import random
 import os
 
 pygame.init()
-
 class Map:
     def __init__(self, image_path, screen_width, screen_height, zoom_factor=3.0):
         self.original_image = pygame.image.load(image_path)
