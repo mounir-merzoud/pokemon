@@ -1,3 +1,8 @@
+
+import donnees_pokemon.json
+from choix_de_pokemon import *
+from map import *
+
 import random
 
 # Générer un nombre aleatoire entre 1 et 10
