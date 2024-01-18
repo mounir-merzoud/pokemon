@@ -4,6 +4,30 @@ import random
 import os
 
 pygame.init()
+images_paths = [
+    "images/p1.png",
+    "images/p2.png",
+    "images/p5.png",
+    "images/p8.png",
+    "images/p9.png",
+    "images/p10.png",
+    "images/p11.png",
+    "images/p14.png",
+    "images/p16.png",
+]
+
+# Positions fixes pour les images Pokémon
+pokemon_positions = [
+    (100, 100),
+    (200, 150),
+    (300, 200),
+    (400, 250),
+    (500, 300),
+    (100, 350),
+    (200, 400),
+    (300, 450),
+    (400, 500),
+]
 
 class Map:
     def __init__(self, image_path, screen_width, screen_height, zoom_factor=3.0):
@@ -38,30 +62,7 @@ class Joueur:
         return dx, dy
 
 # Chemins des images Pokémon
-images_paths = [
-    "images/p1.png",
-    "images/p2.png",
-    "images/p5.png",
-    "images/p8.png",
-    "images/p9.png",
-    "images/p10.png",
-    "images/p11.png",
-    "images/p14.png",
-    "images/p16.png",
-]
 
-# Positions fixes pour les images Pokémon
-pokemon_positions = [
-    (100, 100),
-    (200, 150),
-    (300, 200),
-    (400, 250),
-    (500, 300),
-    (100, 350),
-    (200, 400),
-    (300, 450),
-    (400, 500),
-]
 
 # Paramètres de la fenêtre
 screen_width, screen_height = 600, 400
@@ -102,7 +103,7 @@ while running:
         pokemon_rect = pygame.Rect(x - pokemon_map.x, y - pokemon_map.y, 60, 60)  # Ajustez la taille selon vos besoins
 
         # Afficher l'image Pokémon à la position fixe
-        pokemon_image = pygame.transform.scale(pygame.image.load(path), (60, 60))
+        pokemon_image = pygame.transform.scale(pygame.image.load(path), (10, 10))
         screen.blit(pokemon_image, (x - pokemon_map.x, y - pokemon_map.y))
 
         # Vérifier la collision avec le joueur
