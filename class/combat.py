@@ -1,3 +1,4 @@
+import random
 class Pokemon:
     def __init__(self, nom, type):
         self.nom = nom
