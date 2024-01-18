@@ -1,4 +1,39 @@
 import random
+
+# Générer un nombre aleatoire entre 1 et 10
+nombre_aleatoire = random.randint(1, 18)
+
+# Afficher le nombre generee
+print("Nombre aleatoire :", nombre_aleatoire)
+
+import pygame
+import sys
+
+pygame.init()
+
+# Taille de la fenêtre
+largeur, hauteur = 800, 600
+taille_fenetre = (largeur, hauteur)
+
+# Créer la fenêtre
+fenetre = pygame.display.set_mode(taille_fenetre)
+pygame.display.set_caption("Pokemon combat")
+
+# Définir la couleur de fond
+couleur_fond = (255, 255, 255)
+
+# Boucle principale
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    # Dessiner sur la fenêtre
+    fenetre.fill(couleur_fond)
+
+    # Mettre à jour l'affichage
+    pygame.display.flip()
 class Pokemon:
     def __init__(self, nom, type):
         self.nom = nom
