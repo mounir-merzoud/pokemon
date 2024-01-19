@@ -2,7 +2,7 @@ import pygame
 import json
 import os
 import sys
-from MENUE import * 
+from MENU import * 
 
 blanc = (255, 255, 255)
 

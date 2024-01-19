@@ -1,6 +1,6 @@
 import pygame
 import sys
-from choix_de_pokemon import GestionPokemon
+from choix_de_pokemon import *
 
 class Menu:
     def __init__(self):
@@ -70,7 +70,8 @@ class Menu:
                     self.Quitter_partie()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     for button_name, button_position in self.button_positions.items():
-                        button_rect = pygame.Rect(button_position, (self.font.size(button_name)))
+                        # Correction : Utilisation de self.font.render pour obtenir la taille du texte
+                        button_rect = pygame.Rect(button_position, self.font.size(button_name))
                         if button_rect.collidepoint(event.pos):
                             self.handle_button_click(button_name)
 
@@ -78,7 +79,8 @@ class Menu:
 
             # Mettez à jour la couleur du texte et du fond en fonction du survol
             for button_name, button_position in self.button_positions.items():
-                button_rect = pygame.Rect(button_position, (self.font.size(button_name)))
+                # Correction : Utilisation de self.font.size pour obtenir la taille du texte
+                button_rect = pygame.Rect(button_position, self.font.size(button_name))
                 is_hovering = self.check_button_hover(mouse_pos, button_rect)
 
                 # Couleur du texte

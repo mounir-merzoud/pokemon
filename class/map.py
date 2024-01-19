@@ -1,6 +1,6 @@
 import pygame
 import sys
-from MENUE import *
+from MENU import *
 
 pygame.init()
 
