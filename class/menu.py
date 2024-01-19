@@ -7,8 +7,8 @@ from choix_de_pokemon import *
 pygame.init()
 
 # Paramètres de la fenêtre
-largeur_fenetre = 800
-hauteur_fenetre = 600
+largeur_fenetre = 900
+hauteur_fenetre = 750
 
 # Couleurs
 rouge = (255, 0, 0)
