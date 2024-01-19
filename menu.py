@@ -1,6 +1,8 @@
 import pygame
 import sys
 
+from choix_de_pokemon import *
+
 # Initialisation de Pygame
 pygame.init()
 
@@ -17,25 +19,29 @@ fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
 pygame.display.set_caption("Menu Pokémon")
 
 # Chargement de l'image de fond
-image_fond = pygame.image.load("images/Pokemon-fond.png")  # Remplacez le chemin par le chemin de votre image
+image_fond = pygame.image.load("images/Pokemon-fond.png")
 image_fond = pygame.transform.scale(image_fond, (largeur_fenetre, hauteur_fenetre))
 
 # Paramètres des boutons
 bouton_largeur = 300
 bouton_hauteur = 50
-espace_entre_boutons = 20
 
 # Font
 police = pygame.font.Font(None, 36)
+#gestion_pokemon = GestionPokemon("../donnees_pokemon.json")
 
 # Fonction pour lancer une nouvelle partie
 def nouvelle_partie():
     print("Lancer une nouvelle partie")
-
+    from map import map # Importez la classe Map depuis votre fichier map.py
+    nouvelle_partie_map = Map()  # Créez une nouvelle instance de Map
+    nouvelle_partie_map.run() 
 # Fonction pour choisir les Pokémon
 def choisir_pokemon():
-    print("Choisir mes Pokémon")
-
+    print("Choisir Pokémon : Vous avez cliqué sur le bouton Choisir Pokémon")
+    gestion_pokemon = GestionPokemon("donnees_pokemon.json")
+    gestion_pokemon.run()
+  
 # Fonction pour accéder au Pokédex
 def acceder_pokedex():
     print("Entrer sur le Pokédex")
@@ -67,7 +73,7 @@ while True:
     fenetre.blit(image_fond, (0, 0))
 
     # Dessin des boutons
-    pygame.draw.rect(fenetre, rouge, (100, 200, bouton_largeur, bouton_hauteur,))  # Bouton nouvelle partie
+    pygame.draw.rect(fenetre, rouge, (100, 200, bouton_largeur, bouton_hauteur))  # Bouton nouvelle partie
     pygame.draw.rect(fenetre, rouge, (100, 300, bouton_largeur, bouton_hauteur))  # Bouton choisir Pokémon
     pygame.draw.rect(fenetre, rouge, (100, 400, bouton_largeur, bouton_hauteur))  # Bouton accéder au Pokédex
     pygame.draw.rect(fenetre, rouge, (100, 500, bouton_largeur, bouton_hauteur))  # Bouton quitter la partie
@@ -87,3 +93,4 @@ while True:
 
     # Rafraîchissement de l'écran
     pygame.display.flip()
+
