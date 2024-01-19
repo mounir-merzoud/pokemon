@@ -1,67 +1,112 @@
 import pygame
 import sys
-from map import * 
-# Assurez-vous également d'importer les autres classes nécessaires (GestionPokemon, etc.) si elles ne sont pas déjà importées
+from choix_de_pokemon import GestionPokemon
 
-pygame.init()
+class Menu:
+    def __init__(self):
+        pygame.init()
 
-# Définir la taille de la fenêtre
-screen = pygame.display.set_mode((1280, 720))
-pygame.display.set_caption("Menu")
+        # Définir la taille de la fenêtre
+        self.screen = pygame.display.set_mode((800, 620))
+        pygame.display.set_caption("Menu")
 
-# Charger l'image de fond
-bg = pygame.image.load("images/background.png")
+        # Charger l'image de fond
+        self.bg = pygame.image.load("images/background.jpeg")
 
-# Définir la police
-font = pygame.font.Font(None, 36)
+        # Définir la police et la taille du texte
+        self.font = pygame.font.Font(pygame.font.get_default_font(), 36)
 
-# Définir les couleurs
-white = (255, 255, 255)
-black = (0, 0, 0)
+        # Couleurs
+        self.white = (255, 255, 255)
+        self.black = (0, 0, 0)
+        self.red = (255, 0, 0)
 
-# Définir les textes
-text_nouvelle_partie = font.render("Nouvelle Partie", True, black)
-text_choisir_pokemon = font.render("Choisir Pokémon", True, black)
-text_acceder_pokedex = font.render("Accéder au Pokédex", True, black)
-text_quitter_partie = font.render("Quitter la Partie", True, black)
+        # Position et texte des boutons
+        self.button_positions = {
+            'Nouvelle_partie': (50, 50),
+            'Choisir_pokemon': (50, 100),
+            'Acceder_pokedex': (50, 150),
+            'Quitter_partie': (50, 200)
+        }
 
-def nouvelle_partie():
-    print("Lancer une nouvelle partie")
+        # Définir les actions des boutons
+        self.button_actions = {
+            'Nouvelle_partie': self.Nouvelle_partie,
+            'Choisir_pokemon': self.Choisir_pokemon,
+            'Acceder_pokedex': self.Acceder_pokedex,
+            'Quitter_partie': self.Quitter_partie
+        }
 
-def choisir_pokemon():
-    print("Choisir Pokémon : Vous avez cliqué sur le bouton Choisir Pokémon")
-    # Ajoutez le code nécessaire pour gérer le choix du Pokémon
+    def Nouvelle_partie(self):
+        from map import Map
+        nouvelle_partie_map = Map()
+        nouvelle_partie_map.run()
 
-def acceder_pokedex():
-    print("Entrer sur le Pokédex")
-    # Ajoutez le code nécessaire pour accéder au Pokédex
+    def Choisir_pokemon(self):
+        gestion_pokemon = GestionPokemon("donnees_pokemon.json", 620)
+        gestion_pokemon.run(self.screen)
 
-def quitter_partie():
-    pygame.quit()
-    sys.exit()
+    def Acceder_pokedex(self):
+        print("Entrer sur le Pokédex")
 
-# Boucle principale du jeu
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            quitter_partie()
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            if text_nouvelle_partie.get_rect().collidepoint(pygame.mouse.get_pos()):
-                nouvelle_partie()
-            elif text_choisir_pokemon.get_rect().collidepoint(pygame.mouse.get_pos()):
-                choisir_pokemon()
-            elif text_acceder_pokedex.get_rect().collidepoint(pygame.mouse.get_pos()):
-                acceder_pokedex()
-            elif text_quitter_partie.get_rect().collidepoint(pygame.mouse.get_pos()):
-                quitter_partie()
+    def Quitter_partie(self):
+        pygame.quit()
+        sys.exit()
 
-    # Afficher l'arrière-plan
-    screen.blit(bg, (0, 0))
+    def check_button_hover(self, mouse_pos, button_rect):
+        return button_rect.collidepoint(mouse_pos)
 
-    # Afficher les textes
-    screen.blit(text_nouvelle_partie, (50, 50))
-    screen.blit(text_choisir_pokemon, (50, 100))
-    screen.blit(text_acceder_pokedex, (50, 150))
-    screen.blit(text_quitter_partie, (50, 200))
+    def handle_button_click(self, button_name):
+        if button_name in self.button_actions:
+            self.button_actions[button_name]()
 
-    pygame.display.flip()
+    def run(self):
+        while True:
+            # Afficher l'arrière-plan
+            self.screen.blit(self.bg, (0, 0))
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.Quitter_partie()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    for button_name, button_position in self.button_positions.items():
+                        button_rect = pygame.Rect(button_position, (self.font.size(button_name)))
+                        if button_rect.collidepoint(event.pos):
+                            self.handle_button_click(button_name)
+
+            mouse_pos = pygame.mouse.get_pos()
+
+            # Mettez à jour la couleur du texte et du fond en fonction du survol
+            for button_name, button_position in self.button_positions.items():
+                button_rect = pygame.Rect(button_position, (self.font.size(button_name)))
+                is_hovering = self.check_button_hover(mouse_pos, button_rect)
+
+                # Couleur du texte
+                text_color = self.red if is_hovering else self.black
+
+                # Couleur du fond
+                background_color = self.black if is_hovering else self.white
+
+                # Créer une surface pour le fond avec une bordure arrondie
+                button_surface = pygame.Surface((button_rect.width, button_rect.height))
+                pygame.draw.rect(button_surface, background_color, button_surface.get_rect(), border_radius=10)
+                button_surface.set_alpha(150)  # Ajuster la transparence du fond
+
+                # Afficher le fond
+                self.screen.blit(button_surface, button_rect.topleft)
+
+                # Afficher le texte avec la couleur mise à jour
+                text_surface = self.font.render(button_name, True, text_color)
+                self.screen.blit(text_surface, button_rect.topleft)
+
+                # Définir le curseur en fonction du survol
+                if is_hovering:
+                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+                else:
+                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+            pygame.display.flip()
+
+if __name__ == "__main__":
+    menu = Menu()
+    menu.run()
