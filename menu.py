@@ -28,17 +28,18 @@ bouton_hauteur = 50
 
 # Font
 police = pygame.font.Font(None, 36)
-gestion_pokemon = GestionPokemon("donnees_pokemon.json")
+#gestion_pokemon = GestionPokemon("../donnees_pokemon.json")
 
 # Fonction pour lancer une nouvelle partie
 def nouvelle_partie():
     print("Lancer une nouvelle partie")
-    from map import Map  # Importez la classe Map depuis votre fichier map.py
+    from map import map # Importez la classe Map depuis votre fichier map.py
     nouvelle_partie_map = Map()  # Créez une nouvelle instance de Map
     nouvelle_partie_map.run() 
 # Fonction pour choisir les Pokémon
 def choisir_pokemon():
     print("Choisir Pokémon : Vous avez cliqué sur le bouton Choisir Pokémon")
+    gestion_pokemon = GestionPokemon("donnees_pokemon.json")
     gestion_pokemon.run()
   
 # Fonction pour accéder au Pokédex
