@@ -2,8 +2,7 @@ import pygame
 import json
 import os
 import sys
-from MENU import * 
-
+from MENU import *
 blanc = (255, 255, 255)
 
 class GestionPokemon:
@@ -77,9 +76,9 @@ class GestionPokemon:
                             self.select_pokemon(nom)
                     # Ajout de la gestion du clic pour le nouveau bouton
                     if self.nouveau_bouton_rect.collidepoint(event.pos):
-                        menu = Menu()
-                        menu.run()
-                        self.nouveau_bouton_clic()
+                         menu = Menu()
+                         menu.run()
+                            self.nouveau_bouton_clic()
 
     # Ajout de la nouvelle fonction pour gérer le clic du nouveau bouton
     def nouveau_bouton_clic(self):
