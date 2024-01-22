@@ -1,5 +1,3 @@
-# choix_de_pokemon.py
-
 import pygame
 import json
 import os
