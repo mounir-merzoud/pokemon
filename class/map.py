@@ -1,13 +1,13 @@
 import pygame
 import sys
-import random
-import os
+from MENU import *
+from battle import *
 
 pygame.init()
 
 class Map:
-    def __init__(self, image_path, screen_width, screen_height, zoom_factor=3.0):
-        self.original_image = pygame.image.load(image_path)
+    def __init__(self, map_image_path, screen_width, screen_height, zoom_factor=3.0):
+        self.original_image = pygame.image.load(map_image_path)
         self.image = pygame.transform.scale(self.original_image, (int(screen_width * zoom_factor), int(screen_height * zoom_factor)))
         self.rect = self.image.get_rect()
         self.x = 0
@@ -40,14 +40,14 @@ class Joueur:
 # Chemins des images Pokémon
 images_paths = [
     "images/p1.png",
-    "images/p2.png",
-    "images/p5.png",
-    "images/p8.png",
-    "images/p9.png",
-    "images/p10.png",
-    "images/p11.png",
-    "images/p14.png",
-    "images/p16.png",
+    #"images/p2.png",
+    #"images/p5.png",
+    #"images/p8.png",
+    #"images/p9.png",
+    #"images/p10.png",
+    #"images/p11.png",
+    #"images/p14.png",
+    #"images/p16.png",
 ]
 
 # Positions fixes pour les images Pokémon
@@ -76,14 +76,20 @@ pokemon_map = Map(map_image_path, screen_width, screen_height, zoom_factor=3.0)
 joueur_image_path = "images/sacha.png"
 joueur = Joueur(joueur_image_path, screen_width, screen_height, player_width=60, player_height=60)
 
-# Boucle principale
+# Position du bouton "Back"
+back_button_rect = pygame.Rect(20, 20, 80, 40)
+back_button_text = pygame.font.Font(None, 36).render("Back", True, (255, 255, 255))
+
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and back_button_rect.collidepoint(event.pos):
+            # Ajoutez ici le code pour revenir au menu principal
+            menu = Menu()
+            menu.run()
 
-    # Gestion des touches
     keys = pygame.key.get_pressed()
     dx, dy = joueur.move(keys)
 
@@ -97,17 +103,27 @@ while running:
     # Afficher le joueur
     screen.blit(joueur.image, joueur.rect)
 
-    # Vérifier si le joueur est sur la même position qu'une image Pokémon
+    # Afficher les images des Pokémon à des positions fixes sur l'écran
     for path, (x, y) in zip(images_paths, pokemon_positions):
         pokemon_rect = pygame.Rect(x - pokemon_map.x, y - pokemon_map.y, 60, 60)  # Ajustez la taille selon vos besoins
 
+<<<<<<< HEAD
         # Afficher l'image Pokémon à la position fixe
+=======
+        # Afficher l'image Pokémon à la position fixe sur l'écran
+>>>>>>> combat
         pokemon_image = pygame.transform.scale(pygame.image.load(path), (5, 5))
         screen.blit(pokemon_image, (x - pokemon_map.x, y - pokemon_map.y))
 
         # Vérifier la collision avec le joueur
         if joueur.rect.colliderect(pokemon_rect):
-            print("Combat!")  # Vous pouvez remplacer ceci par l'ouverture de la fenêtre de combat
+            print("Combat!") 
+            battle_instance = Battle()
+            battle_instance.run() # Vous pouvez remplacer ceci par l'ouverture de la fenêtre de combat
+
+    # Affichez le bouton "Back"
+    pygame.draw.rect(screen, (0, 0, 0), back_button_rect)
+    screen.blit(back_button_text, (30, 30))
 
     # Mettre à jour l'affichage
     pygame.display.flip()
