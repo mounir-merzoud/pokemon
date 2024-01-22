@@ -6,9 +6,9 @@ pygame.init()
 
 images_paths = [
     "images/p1.png",
-    # "images/p2.png",
-    # "images/p5.png",
-    # "images/p8.png",
+    "images/p2.png",
+    "images/p5.png",
+    "images/p8.png",
     # "images/p9.png",
     # "images/p10.png",
     # "images/p11.png",
@@ -28,13 +28,21 @@ pokemon_positions = [
     (400, 500),
 ]
 
-class Map:
-    def __init__(self, image_path, screen_width, screen_height, zoom_factor=3.0):
+class PokemonImage:
+    def __init__(self, image_path, position):
         self.original_image = pygame.image.load(image_path)
+        self.image = pygame.transform.scale(self.original_image, (5, 5))  # Taille de l'image réduite
+        self.rect = self.image.get_rect()
+        self.rect.topleft = position
+
+class Map:
+    def __init__(self, map_image_path, screen_width, screen_height, zoom_factor=3.0):
+        self.original_image = pygame.image.load(map_image_path)
         self.image = pygame.transform.scale(self.original_image, (int(screen_width * zoom_factor), int(screen_height * zoom_factor)))
         self.rect = self.image.get_rect()
         self.x = 0
         self.y = 0
+        self.pokemon_images = [PokemonImage(image_path, (position[0], position[1])) for image_path, position in zip(images_paths, pokemon_positions)]
 
     def move(self, dx, dy):
         self.x += dx
@@ -79,20 +87,22 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1 and back_button_rect.collidepoint(event.pos):
-                # Ajoutez ici le code pour revenir au menu principal
-                 menu = Menu()
-                 menu.run()
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and back_button_rect.collidepoint(event.pos):
+            # Ajoutez ici le code pour revenir au menu principal
+            menu = Menu()
+            menu.run()
 
     keys = pygame.key.get_pressed()
     dx, dy = joueur.move(keys)
-
     joueur.move(keys)
     pokemon_map.move(dx, dy)
 
     screen.blit(pokemon_map.image, (pokemon_map.rect.x - pokemon_map.x, pokemon_map.rect.y - pokemon_map.y))
     screen.blit(joueur.image, joueur.rect)
+
+    # Afficher les images des Pokémon
+    for pokemon_image in pokemon_map.pokemon_images:
+        screen.blit(pokemon_image.image, pokemon_image.rect.topleft)
 
     # Affichez le bouton "Back"
     pygame.draw.rect(screen, (0, 0, 0), back_button_rect)

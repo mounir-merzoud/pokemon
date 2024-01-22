@@ -1,8 +1,11 @@
+# choix_de_pokemon.py
+
 import pygame
 import json
 import os
 import sys
 from MENU import *
+
 blanc = (255, 255, 255)
 
 class GestionPokemon:
@@ -14,7 +17,7 @@ class GestionPokemon:
         self.lignes_visibles = int(hauteur_fenetre / 80)
         self.charger_images_pokemon()
 
-        # Ajout d'une nouvelle zone rectangulaire pour le nouveau bouton
+        self.pokemon_selectionne = None
         self.nouveau_bouton_rect = pygame.Rect(600, 500, 150, 50)
 
     def charger_donnees(self, fichier_json):
@@ -47,15 +50,26 @@ class GestionPokemon:
             if nom in self.images_pokemon:
                 surface.blit(self.images_pokemon[nom], (50, y_position + 10))
 
-        # Dessiner le nouveau bouton
         pygame.draw.rect(surface, blanc, self.nouveau_bouton_rect, 2)
         texte_nouveau_bouton = self.police.render("back", True, blanc)
         surface.blit(texte_nouveau_bouton, (self.nouveau_bouton_rect.x + 10, self.nouveau_bouton_rect.y + 10))
 
     def select_pokemon(self, nom):
         print(f"Pokémon sélectionné : {nom}")
-        # Ajoutez ici le code pour effectuer une action lorsque le bouton est cliqué.
-        # Par exemple, ouvrir une fenêtre d'informations sur le Pokémon.
+        self.pokemon_selectionne = self.pokemon_data.get(nom)
+
+    def sauvegarder_pokemon_selectionne(self, fichier_json):
+        if self.pokemon_selectionne:
+            with open(fichier_json, 'w') as fichier:
+                json.dump({"selected_pokemon": self.pokemon_selectionne}, fichier)
+
+    def charger_pokemon_selectionne(self, fichier_json):
+        try:
+            with open(fichier_json, 'r') as fichier:
+                data = json.load(fichier)
+                self.pokemon_selectionne = data.get("selected_pokemon")
+        except Exception as e:
+            print(f"Une erreur s'est produite lors du chargement du Pokémon sélectionné : {e}")
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -74,16 +88,18 @@ class GestionPokemon:
                         if bouton_rect.collidepoint(event.pos):
                             print(f"Bouton {nom} cliqué!")
                             self.select_pokemon(nom)
-                    # Ajout de la gestion du clic pour le nouveau bouton
                     if self.nouveau_bouton_rect.collidepoint(event.pos):
-                         menu = Menu()
-                         menu.run()
-                         self.nouveau_bouton_clic()
+                        self.sauvegarder_pokemon_selectionne("pokemon_selectionne.json")
+                        menu = Menu()
+                        menu.run()
+                        self.nouveau_bouton_clic()
 
-    # Ajout de la nouvelle fonction pour gérer le clic du nouveau bouton
     def nouveau_bouton_clic(self):
         print("Nouveau bouton cliqué!")
-        # Ajoutez ici le code pour effectuer une action lorsque le nouveau bouton est cliqué.
+        if self.pokemon_selectionne:
+            print("Informations du Pokémon sélectionné:")
+            print(f"Nom: {self.pokemon_selectionne['nom']}")
+            print(f"Niveau: {self.pokemon_selectionne['niveau']}")
 
     def run(self, fenetre):
         while True:
