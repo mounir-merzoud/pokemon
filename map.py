@@ -52,6 +52,30 @@ pokemon_positions = [
     (400, 500),
 ]
 
+images_paths = [
+    "images/p1.png",
+    # "images/p2.png",
+    # "images/p5.png",
+    # "images/p8.png",
+    # "images/p9.png",
+    # "images/p10.png",
+    # "images/p11.png",
+    # "images/p14.png",
+    # "images/p16.png",
+]
+
+pokemon_positions = [
+    (100, 100),
+    (200, 150),
+    (300, 200),
+    (400, 250),
+    (500, 300),
+    (100, 350),
+    (200, 400),
+    (300, 450),
+    (400, 500),
+]
+
 class Map:
     def __init__(self, image_path, screen_width, screen_height, zoom_factor=3.0):
         self.original_image = pygame.image.load(image_path)
@@ -84,13 +108,33 @@ class Joueur:
             dy += self.speed
         return dx, dy
 
-<<<<<<< HEAD:class/map.py
 # Chemins des images Pokémon
+images_paths = [
+    "images/p1.png",
+    "images/p2.png",
+    "images/p5.png",
+    "images/p8.png",
+    "images/p9.png",
+    "images/p10.png",
+    "images/p11.png",
+    "images/p14.png",
+    "images/p16.png",
+]
 
+# Positions fixes pour les images Pokémon
+pokemon_positions = [
+    (100, 100),
+    (200, 150),
+    (300, 200),
+    (400, 250),
+    (500, 300),
+    (100, 350),
+    (200, 400),
+    (300, 450),
+    (400, 500),
+]
 
 # Paramètres de la fenêtre
-=======
->>>>>>> bddf1f250fc171c1246ee79c9e16c41f7f76e732:map.py
 screen_width, screen_height = 600, 400
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Pokemon Map")
@@ -125,13 +169,12 @@ while running:
     screen.blit(pokemon_map.image, (pokemon_map.rect.x - pokemon_map.x, pokemon_map.rect.y - pokemon_map.y))
     screen.blit(joueur.image, joueur.rect)
 
-    # Affichez le bouton "Back"
-    pygame.draw.rect(screen, (0, 0, 0), back_button_rect)
-    screen.blit(back_button_text, (30, 30))
+    # Vérifier si le joueur est sur la même position qu'une image Pokémon
+    for path, (x, y) in zip(images_paths, pokemon_positions):
+        pokemon_rect = pygame.Rect(x - pokemon_map.x, y - pokemon_map.y, 60, 60)  # Ajustez la taille selon vos besoins
 
-<<<<<<< HEAD:class/map.py
         # Afficher l'image Pokémon à la position fixe
-        pokemon_image = pygame.transform.scale(pygame.image.load(path), (10, 10))
+        pokemon_image = pygame.transform.scale(pygame.image.load(path), (60, 60))
         screen.blit(pokemon_image, (x - pokemon_map.x, y - pokemon_map.y))
 
         # Vérifier la collision avec le joueur
@@ -139,8 +182,6 @@ while running:
             print("Combat!")  # Vous pouvez remplacer ceci par l'ouverture de la fenêtre de combat
 
     # Mettre à jour l'affichage
-=======
->>>>>>> bddf1f250fc171c1246ee79c9e16c41f7f76e732:map.py
     pygame.display.flip()
 
 pygame.quit()

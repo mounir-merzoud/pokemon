@@ -4,12 +4,6 @@ import sys
 
 pygame.init()
 
-# Générer un nombre aleatoire entre 1 et 18
-nombre_aleatoire = random.randint(1, 18)
-
-# Afficher le nombre generee
-print("Nombre aleatoire :", nombre_aleatoire)
-
 # Paramètres de la fenêtre
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
@@ -39,10 +33,6 @@ class Pokemon:
     def draw(self):
         pygame.draw.circle(window, (255, 0, 0), (self.x, self.y), 20)
         draw_text(self.name, self.x - 20, self.y + 30)
-
-    def move(self, dx, dy):
-        self.x += dx
-        self.y += dy
 
     def attack(self, opponent):
         attack_power = self.attack_weapon.attack()
@@ -107,8 +97,8 @@ running = True
 clock = pygame.time.Clock()
 
 # Création des Pokémon
-dracaufeu = Pokemon("Dracaufeu", "Feu/Vol", 75, Weapon("Lance-Flammes", 10), Defense("Ecailles", 8), 100, 100)
-leviator = Pokemon("Leviator", "Eau/Vol", 78, Weapon("Hydrocanon", 9), Defense("Ecailles", 8), 200, 200)
+dracaufeu = Pokemon("Dracaufeu", "Feu/Vol", 75, Weapon("Lance-Flammes", 10), Defense("Ecailles", 8), WINDOW_WIDTH - 100, 100)
+leviator = Pokemon("Leviator", "Eau/Vol", 78, Weapon("Hydrocanon", 9), Defense("Ecailles", 8), 100, WINDOW_HEIGHT - 100)
 
 while running:
     for event in pygame.event.get():
@@ -116,16 +106,6 @@ while running:
             running = False
             pygame.quit()
             sys.exit()
-
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
-        dracaufeu.move(-5, 0)
-    if keys[pygame.K_RIGHT]:
-        dracaufeu.move(5, 0)
-    if keys[pygame.K_UP]:
-        dracaufeu.move(0, -5)
-    if keys[pygame.K_DOWN]:
-        dracaufeu.move(0, 5)
 
     # Combat
     result = dracaufeu.attack(leviator)
