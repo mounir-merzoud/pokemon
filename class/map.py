@@ -102,7 +102,7 @@ while running:
         pokemon_rect = pygame.Rect(x - pokemon_map.x, y - pokemon_map.y, 60, 60)  # Ajustez la taille selon vos besoins
 
         # Afficher l'image Pokémon à la position fixe
-        pokemon_image = pygame.transform.scale(pygame.image.load(path), (60, 60))
+        pokemon_image = pygame.transform.scale(pygame.image.load(path), (5, 5))
         screen.blit(pokemon_image, (x - pokemon_map.x, y - pokemon_map.y))
 
         # Vérifier la collision avec le joueur
