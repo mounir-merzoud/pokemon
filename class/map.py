@@ -4,6 +4,7 @@ from MENU import *
 
 pygame.init()
 
+
 images_paths = [
     "images/p1.png",
     # "images/p2.png",
