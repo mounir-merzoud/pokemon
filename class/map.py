@@ -5,6 +5,34 @@ from battle import *
 
 pygame.init()
 
+<<<<<<< HEAD
+
+images_paths = [
+    "images/p1.png",
+    # "images/p2.png",
+    # "images/p5.png",
+    # "images/p8.png",
+    # "images/p9.png",
+    # "images/p10.png",
+    # "images/p11.png",
+    # "images/p14.png",
+    # "images/p16.png",
+]
+
+pokemon_positions = [
+    (100, 100),
+    (200, 150),
+    (300, 200),
+    (400, 250),
+    (500, 300),
+    (100, 350),
+    (200, 400),
+    (300, 450),
+    (400, 500),
+]
+
+=======
+>>>>>>> map
 class Map:
     def __init__(self, map_image_path, screen_width, screen_height, zoom_factor=3.0):
         self.original_image = pygame.image.load(map_image_path)

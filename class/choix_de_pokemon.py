@@ -131,8 +131,12 @@ class GestionPokemon:
                             print(f"Bouton {nom} cliqué!")
                             self.select_pokemon(nom)
                     if self.nouveau_bouton_rect.collidepoint(event.pos):
+<<<<<<< HEAD
+                        menu =Menu()
+=======
                         self.sauvegarder_pokemon_selectionne("pokemon_selectionne.json")
                         menu = Menu()
+>>>>>>> map
                         menu.run()
                         self.nouveau_bouton_clic()
 
