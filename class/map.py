@@ -5,34 +5,6 @@ from battle import *
 
 pygame.init()
 
-<<<<<<< HEAD
-
-images_paths = [
-    "images/p1.png",
-    # "images/p2.png",
-    # "images/p5.png",
-    # "images/p8.png",
-    # "images/p9.png",
-    # "images/p10.png",
-    # "images/p11.png",
-    # "images/p14.png",
-    # "images/p16.png",
-]
-
-pokemon_positions = [
-    (100, 100),
-    (200, 150),
-    (300, 200),
-    (400, 250),
-    (500, 300),
-    (100, 350),
-    (200, 400),
-    (300, 450),
-    (400, 500),
-]
-
-=======
->>>>>>> map
 class Map:
     def __init__(self, map_image_path, screen_width, screen_height, zoom_factor=3.0):
         self.original_image = pygame.image.load(map_image_path)
@@ -65,20 +37,11 @@ class Joueur:
             dy += self.speed
         return dx, dy
 
-# Chemins des images Pokémon
 images_paths = [
     "images/p1.png",
-    #"images/p2.png",
-    #"images/p5.png",
-    #"images/p8.png",
-    #"images/p9.png",
-    #"images/p10.png",
-    #"images/p11.png",
-    #"images/p14.png",
-    #"images/p16.png",
+    # Ajoutez d'autres chemins d'images Pokémon ici
 ]
 
-# Positions fixes pour les images Pokémon
 pokemon_positions = [
     (100, 100),
     (200, 150),
@@ -91,20 +54,16 @@ pokemon_positions = [
     (400, 500),
 ]
 
-# Paramètres de la fenêtre
 screen_width, screen_height = 600, 400
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Pokemon Map")
 
-# Création de la carte avec une image JPG et un facteur de zoom plus grand
 map_image_path = "images/Map.jpg"
 pokemon_map = Map(map_image_path, screen_width, screen_height, zoom_factor=3.0)
 
-# Création du joueur avec une image PNG et des dimensions spécifiques
 joueur_image_path = "images/sacha.png"
 joueur = Joueur(joueur_image_path, screen_width, screen_height, player_width=60, player_height=60)
 
-# Position du bouton "Back"
 back_button_rect = pygame.Rect(20, 20, 80, 40)
 back_button_text = pygame.font.Font(None, 36).render("Back", True, (255, 255, 255))
 
@@ -114,44 +73,34 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and back_button_rect.collidepoint(event.pos):
-            # Ajoutez ici le code pour revenir au menu principal
             menu = Menu()
             menu.run()
 
     keys = pygame.key.get_pressed()
     dx, dy = joueur.move(keys)
 
-    # Déplacer la carte en fonction du joueur
     joueur.move(keys)
     pokemon_map.move(dx, dy)
 
-    # Afficher la carte à partir de la position décalée
     screen.blit(pokemon_map.image, (pokemon_map.rect.x - pokemon_map.x, pokemon_map.rect.y - pokemon_map.y))
-
-    # Afficher le joueur
     screen.blit(joueur.image, joueur.rect)
 
-    # Afficher les images des Pokémon à des positions fixes sur l'écran
     for path, (x, y) in zip(images_paths, pokemon_positions):
-        pokemon_rect = pygame.Rect(x - pokemon_map.x, y - pokemon_map.y, 60, 60)  # Ajustez la taille selon vos besoins
+        pokemon_rect = pygame.Rect(x - pokemon_map.x, y - pokemon_map.y, 60, 60)
 
-        # Afficher l'image Pokémon à la position fixe sur l'écran
         pokemon_image = pygame.transform.scale(pygame.image.load(path), (5, 5))
         screen.blit(pokemon_image, (x - pokemon_map.x, y - pokemon_map.y))
 
-        # Vérifier la collision avec le joueur
         if joueur.rect.colliderect(pokemon_rect):
-            print("Combat!") 
+            print("Combat!")
+            # Vous pouvez remplacer ceci par l'ouverture de la fenêtre de combat
             battle_instance = Battle()
-            battle_instance.run() # Vous pouvez remplacer ceci par l'ouverture de la fenêtre de combat
+            battle_instance.run()
 
-    # Affichez le bouton "Back"
     pygame.draw.rect(screen, (0, 0, 0), back_button_rect)
     screen.blit(back_button_text, (30, 30))
 
-    # Mettre à jour l'affichage
     pygame.display.flip()
 
-# Quitter Pygame
 pygame.quit()
 sys.exit()

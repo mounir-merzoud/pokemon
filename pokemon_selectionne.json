@@ -1,9 +1,1 @@
-<<<<<<< HEAD
 {"selected_pokemon": {"nom": "Salameche", "niveau": 5, "type": {"nom": "Feu", "points_de_vie": 100, "puissance_attaque": 30, "defense": 20}, "images": "p1.png"}}
-=======
-<<<<<<< HEAD
-{"selected_pokemon": {"nom": "Carapuce", "niveau": 5, "type": {"nom": "Eau", "points_de_vie": 120, "puissance_attaque": 25, "defense": 25}, "images": "p2.png"}}
-=======
-{"selected_pokemon": {"nom": "Bulbizarre", "niveau": 7, "type": {"nom": "Plante", "points_de_vie": 85, "puissance_attaque": 35, "defense": 25}, "images": "p6.png"}}
->>>>>>> d73cf238d4d4185c853ae5cf301463f346669108
->>>>>>> 6906e8eb08f04d96cbb63523cfa0172273efbd16
