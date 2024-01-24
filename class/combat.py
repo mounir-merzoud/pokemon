@@ -123,19 +123,19 @@ with open('donnees_pokemon.json', 'r') as f:
     pokemon_data = json.load(f)
 
 # Choix aléatoire pour le joueur
-chosen_pokemon_data = random.choice(pokedex_data)
+choix_de_pokemon = random.choice(choix_de_pokemon)
 dracaufeu = Pokemon(
-    chosen_pokemon_data['name'],
-    chosen_pokemon_data['type'],
-    chosen_pokemon_data['level'],
-    Weapon(chosen_pokemon_data['attack_weapon']['name'], chosen_pokemon_data['attack_weapon']['power']),
-    Defense(chosen_pokemon_data['defense_weapon']['name'], chosen_pokemon_data['defense_weapon']['power']),
+    choix_de_pokemon['name'],
+    choix_de_pokemon['type'],
+    choix_de_pokemon['level'],
+    Weapon(choix_de_pokemon['attack_weapon']['name'], choix_de_pokemon['attack_weapon']['power']),
+    Defense(choix_de_pokemon['defense_weapon']['name'], choix_de_pokemon['defense_weapon']['power']),
     WINDOW_WIDTH - 120,
     150
 )
 
 # Choix aléatoire pour l'adversaire
-chosen_enemy_data = random.choice(pokemon_data)
+chosen_enemy_data = random.choice(choix_de_pokemon)
 leviator = Pokemon(
     chosen_enemy_data['name'],
     chosen_enemy_data['type'],
