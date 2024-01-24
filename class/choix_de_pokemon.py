@@ -60,6 +60,28 @@ class GestionPokemon:
         texte_nouveau_bouton = self.police.render("back", True, blanc)
         surface.blit(texte_nouveau_bouton, (self.nouveau_bouton_rect.x + 10, self.nouveau_bouton_rect.y + 10))
 
+    def afficher_informations_pokemon(self, surface):
+     if self.pokemon_selectionne:
+        pygame.draw.rect(surface, blanc, (350, 50, 350, 200), 2)
+
+        texte_nom = self.police.render(f"Nom: {self.pokemon_selectionne.get('nom', '')}", True, blanc)
+        surface.blit(texte_nom, (380, 60))  # Ajuster la position du texte du nom
+
+        texte_niveau = self.police.render(f"Niveau: {self.pokemon_selectionne.get('niveau', '')}", True, blanc)
+        surface.blit(texte_niveau, (380, 90))  # Ajuster la position du texte du niveau
+
+        texte_type_attaque = self.police.render(f"Type d'attaque: {self.pokemon_selectionne.get('type_dattaque', '')}", True, blanc)
+        surface.blit(texte_type_attaque, (380, 120))
+
+        texte_point_de_vie = self.police.render(f"Point de vie: {self.pokemon_selectionne.get('point_de_vie', '')}", True, blanc)
+        surface.blit(texte_point_de_vie, (380, 150))
+
+        texte_puissance_attaque = self.police.render(f"Puissance d'attaque: {self.pokemon_selectionne.get('puissance_dattaque', '')}", True, blanc)
+        surface.blit(texte_puissance_attaque, (380, 180))
+
+        texte_defense = self.police.render(f"Défense: {self.pokemon_selectionne.get('defense', '')}", True, blanc)
+        surface.blit(texte_defense, (380, 210))
+
     def select_pokemon(self, nom):
         print(f"Pokémon sélectionné : {nom}")
         self.pokemon_selectionne = self.pokemon_data.get(nom)
@@ -148,6 +170,7 @@ class GestionPokemon:
             self.handle_events()
             fenetre.fill((0, 0, 0))
             self.afficher_boutons_pokemon(fenetre)
+            self.afficher_informations_pokemon(fenetre)
             pygame.display.flip()
 
 if __name__ == "__main__":

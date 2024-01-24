@@ -1,24 +1,33 @@
 {
-  "Bulbizarre": {
-    "nom": "Bulbizarre",
+  "Weedle": {
+    "nom": "Weedle",
     "niveau": 5,
-    "images": "bulbasaur.png",
+    "images": "weedle.png",
+    "type_dattaque": "insecte",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Wartortle": {
+    "nom": "Wartortle",
+    "niveau": 5,
+    "images": "wartortle.png",
+    "type_dattaque": "eau",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Venusaur": {
+    "nom": "Venusaur",
+    "niveau": 5,
+    "images": "venusaur.png",
     "type_dattaque": "plante",
     "point_de_vie": 70,
     "puissance_dattaque": 40,
     "defense": 30
   },
-  "Salameche": {
-    "nom": "Salameche",
-    "niveau": 5,
-    "images": "charmander.png",
-    "type_dattaque": "feu",
-    "point_de_vie": 70,
-    "puissance_dattaque": 40,
-    "defense": 30
-  },
-  "Carapuce": {
-    "nom": "Carapuce",
+  "Squirtle": {
+    "nom": "Squirtle",
     "niveau": 5,
     "images": "squirtle.png",
     "type_dattaque": "eau",
@@ -26,11 +35,128 @@
     "puissance_dattaque": 40,
     "defense": 30
   },
-  "Pikachu": {
-    "nom": "Pikachu",
+  "Pidgey": {
+    "nom": "Pidgey",
     "niveau": 5,
-    "images": "pikachu.png",
-    "type_dattaque": "électrique",
+    "images": "pidgey.png",
+    "type_dattaque": "normal",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Pidgeotto": {
+    "nom": "Pidgeotto",
+    "niveau": 5,
+    "images": "pidgeotto.png",
+    "type_dattaque": "normal",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Pidgeot": {
+    "nom": "Pidgeot",
+    "niveau": 5,
+    "images": "pidgeot.png",
+    "type_dattaque": "normal",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Metapod": {
+    "nom": "Metapod",
+    "niveau": 5,
+    "images": "metapod.png",
+    "type_dattaque": "insecte",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Kakuna": {
+    "nom": "Kakuna",
+    "niveau": 5,
+    "images": "kakuna.png",
+    "type_dattaque": "insecte",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Ivysaur": {
+    "nom": "Ivysaur",
+    "niveau": 5,
+    "images": "ivysaur.png",
+    "type_dattaque": "plante",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Charmeleon": {
+    "nom": "Charmeleon",
+    "niveau": 5,
+    "images": "charmeleon.png",
+    "type_dattaque": "feu",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Charmander": {
+    "nom": "Charmander",
+    "niveau": 5,
+    "images": "charmander.png",
+    "type_dattaque": "feu",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Charizard": {
+    "nom": "Charizard",
+    "niveau": 5,
+    "images": "charizard.png",
+    "type_dattaque": "feu",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Caterpie": {
+    "nom": "Caterpie",
+    "niveau": 5,
+    "images": "caterpie.png",
+    "type_dattaque": "insecte",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Butterfree": {
+    "nom": "Butterfree",
+    "niveau": 5,
+    "images": "butterfree.png",
+    "type_dattaque": "insecte",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Bulbasaur": {
+    "nom": "Bulbasaur",
+    "niveau": 5,
+    "images": "bulbasaur.png",
+    "type_dattaque": "plante",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Blastoise": {
+    "nom": "Blastoise",
+    "niveau": 5,
+    "images": "blastoise.png",
+    "type_dattaque": "eau",
+    "point_de_vie": 70,
+    "puissance_dattaque": 40,
+    "defense": 30
+  },
+  "Beedrill": {
+    "nom": "Beedrill",
+    "niveau": 5,
+    "images": "beedrill.png",
+    "type_dattaque": "insecte",
     "point_de_vie": 70,
     "puissance_dattaque": 40,
     "defense": 30

@@ -40,16 +40,34 @@ class Battle:
                 nom_joueur = joueur['nom']
                 niveau_joueur = joueur['niveau']
                 chemin_image_joueur = f"C:\\Users\\lo\\Desktop\\bbt\\PYTHON\\P_O_O\\pokemon\\images\\{joueur['images']}"
+                type_dattaque_joueur = joueur['type_dattaque']
+                point_de_vie_joueur = joueur['point_de_vie']
+                puissance_dattaque_joueur = joueur['puissance_dattaque']
+                defense_joueur = joueur['defense']
+
                 texte_nom_joueur = self.font.render(f"Nom: {nom_joueur}", True, (0, 0, 0))
                 texte_niveau_joueur = self.font.render(f"Niveau: {niveau_joueur}", True, (0, 0, 0))
+                texte_type_dattaque_joueur = self.font.render(f"Type d'attaque: {type_dattaque_joueur}", True, (0, 0, 0))
+                texte_point_de_vie_joueur = self.font.render(f"Point de vie: {point_de_vie_joueur}", True, (0, 0, 0))
+                texte_puissance_dattaque_joueur = self.font.render(f"Puissance d'attaque: {puissance_dattaque_joueur}", True, (0, 0, 0))
+                texte_defense_joueur = self.font.render(f"Défense: {defense_joueur}", True, (0, 0, 0))
+
                 self.fenetre.blit(texte_nom_joueur, (20, 70))
                 self.fenetre.blit(texte_niveau_joueur, (20, 100))
+                self.fenetre.blit(texte_type_dattaque_joueur, (20, 130))
+                self.fenetre.blit(texte_point_de_vie_joueur, (20, 160))
+                self.fenetre.blit(texte_puissance_dattaque_joueur, (20, 190))
+                self.fenetre.blit(texte_defense_joueur, (20, 220))
 
                 # Enregistrement du Pokémon sélectionné dans un fichier JSON externe
                 pokemon_selectionne = {
                     "nom": nom_joueur,
                     "niveau": niveau_joueur,
-                    "chemin_image": chemin_image_joueur
+                    "chemin_image": chemin_image_joueur,
+                    "type_dattaque": type_dattaque_joueur,
+                    "point_de_vie": point_de_vie_joueur,
+                    "puissance_dattaque": puissance_dattaque_joueur,
+                    "defense": defense_joueur
                 }
                 with open("../pokemon_selectionne.json", "w") as json_file:
                     json.dump(pokemon_selectionne, json_file)
@@ -78,3 +96,4 @@ class Battle:
 if __name__ == "__main__":
     battle_instance = Battle()
     battle_instance.run()
+
