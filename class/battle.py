@@ -1,8 +1,7 @@
-# battle.py
 import pygame
 import sys
+import json
 from choix_de_pokemon import *
-
 
 class Battle:
     def __init__(self):
@@ -15,6 +14,9 @@ class Battle:
         pygame.display.set_caption("Battle")
 
         self.gestion_pokemon = GestionPokemon("donnees_pokemon.json", self.hauteur_fenetre)
+
+        # Initialise la police
+        self.font = pygame.font.Font(None, 24)
 
     def run(self):
         while True:
@@ -30,33 +32,49 @@ class Battle:
                             if bouton_rect.collidepoint(event.pos):
                                 self.gestion_pokemon.select_pokemon(nom)
 
-            # Charger les deux Pokémon (un sélectionné par l'utilisateur, l'autre choisi au hasard et différent)
             joueur, adversaire = self.gestion_pokemon.charger_pokemon_combat("donnees_pokemon.json")
 
             self.fenetre.fill((255, 255, 255))
 
-            # Afficher le Pokémon sélectionné par l'utilisateur
             if joueur:
                 nom_joueur = joueur['nom']
                 niveau_joueur = joueur['niveau']
-                font = pygame.font.Font(None, 24)
-                texte_nom_joueur = font.render(f"Nom: {nom_joueur}", True, (0, 0, 0))
-                texte_niveau_joueur = font.render(f"Niveau: {niveau_joueur}", True, (0, 0, 0))
+                chemin_image_joueur = f"C:\\Users\\lo\\Desktop\\bbt\\PYTHON\\P_O_O\\pokemon\\images\\{joueur['images']}"
+                texte_nom_joueur = self.font.render(f"Nom: {nom_joueur}", True, (0, 0, 0))
+                texte_niveau_joueur = self.font.render(f"Niveau: {niveau_joueur}", True, (0, 0, 0))
                 self.fenetre.blit(texte_nom_joueur, (20, 70))
                 self.fenetre.blit(texte_niveau_joueur, (20, 100))
 
-            # Afficher le Pokémon choisi au hasard et différent
+                # Enregistrement du Pokémon sélectionné dans un fichier JSON externe
+                pokemon_selectionne = {
+                    "nom": nom_joueur,
+                    "niveau": niveau_joueur,
+                    "chemin_image": chemin_image_joueur
+                }
+                with open("../pokemon_selectionne.json", "w") as json_file:
+                    json.dump(pokemon_selectionne, json_file)
+
+                # Charger et afficher l'image du joueur sélectionné
+                image_joueur = pygame.image.load(chemin_image_joueur)
+                image_joueur = pygame.transform.scale(image_joueur, (100, 100))  # Ajustez la taille selon vos besoins
+                self.fenetre.blit(image_joueur, (150, 70))
+
             if adversaire:
                 nom_adversaire = adversaire['nom']
                 niveau_adversaire = adversaire['niveau']
-                texte_nom_adversaire = font.render(f"Nom (Adversaire): {nom_adversaire}", True, (0, 0, 0))
-                texte_niveau_adversaire = font.render(f"Niveau (Adversaire): {niveau_adversaire}", True, (0, 0, 0))
+                chemin_image_adversaire = f"C:\\Users\\lo\\Desktop\\bbt\\PYTHON\\P_O_O\\pokemon\\images\\{adversaire['images']}" # Assurez-vous d'ajouter cette ligne si les données de votre adversaire incluent le chemin de l'image
+                texte_nom_adversaire = self.font.render(f"Nom (Adversaire): {nom_adversaire}", True, (0, 0, 0))
+                texte_niveau_adversaire = self.font.render(f"Niveau (Adversaire): {niveau_adversaire}", True, (0, 0, 0))
                 self.fenetre.blit(texte_nom_adversaire, (400, 70))
                 self.fenetre.blit(texte_niveau_adversaire, (400, 100))
+
+                # Charger et afficher l'image de l'adversaire
+                image_adversaire = pygame.image.load(chemin_image_adversaire)
+                image_adversaire = pygame.transform.scale(image_adversaire, (100, 100))  # Ajustez la taille selon vos besoins
+                self.fenetre.blit(image_adversaire, (550, 70))
 
             pygame.display.flip()
 
 if __name__ == "__main__":
     battle_instance = Battle()
     battle_instance.run()
-
