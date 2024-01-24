@@ -1,6 +1,9 @@
 import pygame
 import random
+import json
+import os
 import sys
+from choix_de_pokemon import *
 
 pygame.init()
 
@@ -11,13 +14,15 @@ FPS = 30
 
 # Couleurs
 WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+BLACK = (0, 0, 0)
 
 # Création de la fenêtre
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Pokemon combat")
 
 # Police pour le texte
-font = pygame.font.Font(None, 36)
+font = pygame.font.Font(None, 24)
 
 class Pokemon:
     def __init__(self, name, pokemon_type, level, attack_weapon, defense_weapon, x, y):
@@ -29,21 +34,38 @@ class Pokemon:
         self.health = level * 10
         self.x = x
         self.y = y
+        self.attack_weapon_name = ""
 
     def draw(self):
-        pygame.draw.circle(window, (255, 0, 0), (self.x, self.y), 20)
-        draw_text(self.name, self.x - 20, self.y + 30)
+        pygame.draw.circle(window, RED, (self.x, self.y), 20)
+
+        # Afficher les informations du Pokémon
+        draw_text(self.name, self.x - 140, self.y - 60, BLACK, bold=True)  
+        # Nom du Pokémon en gras
+        draw_text(f"Level: {self.level}", self.x - 140, self.y - 40, BLACK)
+        draw_text(f"Attaque: {self.attack_weapon.power}", self.x - 140, self.y - 20, BLACK)
+        draw_text(f"Défense: {self.defense_weapon.power}", self.x - 140, self.y, BLACK)
+        draw_text(f"Dégâts subis: {self.level * 10 - self.health}", self.x - 140, self.y + 20, BLACK)
+
+        # Afficher l'arme utilisée à la dernière attaque
+        draw_text(f"Arme: {self.attack_weapon_name}", self.x - 140, self.y + 40, BLACK)
 
     def move(self, dx, dy):
-        self.x += dx
-        self.y += dy
+        # Vérifier que la nouvelle position reste à l'intérieur du cadre
+        new_x = max(50, min(WINDOW_WIDTH - 100, self.x + dx))
+        new_y = max(50, min(WINDOW_HEIGHT - 100, self.y + dy))
+        self.x, self.y = new_x, new_y
 
     def attack(self, opponent):
         attack_power = self.attack_weapon.attack()
         effectiveness = self.calculate_effectiveness(opponent.type)
         damage = (self.level * attack_power * effectiveness) // 10
         opponent.receive_damage(damage)
-        return f"{self.name} attaque avec {self.attack_weapon.name} ! {opponent.name} subit {damage} points de degats."
+        
+        # Enregistrer le nom de l'arme utilisée
+        self.attack_weapon_name = self.attack_weapon.name
+        
+        return f"{self.name} attaque avec {self.attack_weapon.name} ! {opponent.name} subit {damage} points de dégâts."
 
     def receive_damage(self, damage):
         defense_power = self.defense_weapon.defense()
@@ -82,8 +104,10 @@ class Defense:
     def defense(self):
         return random.randint(self.power // 2, self.power)
 
-def draw_text(text, x, y):
-    text_surface = font.render(text, True, WHITE)
+def draw_text(text, x, y, color, bold=False):
+    text_surface = font.render(text, True, color)
+    if bold:
+        text_surface = pygame.font.Font(None, 24).render(text, True, color)
     window.blit(text_surface, (x, y))
 
 # Fonction pour rendre le plateau de jeu
@@ -91,13 +115,40 @@ def draw_board():
     window.fill(WHITE)
     pygame.draw.rect(window, (0, 0, 0), (50, 50, WINDOW_WIDTH - 100, WINDOW_HEIGHT - 100), 2)
 
+# Chargement des données depuis les fichiers JSON
+with open('pokedex.json', 'r') as f:
+    pokedex_data = json.load(f)
+
+with open('donnees_pokemon.json', 'r') as f:
+    pokemon_data = json.load(f)
+
+# Choix aléatoire pour le joueur
+chosen_pokemon_data = random.choice(pokedex_data)
+dracaufeu = Pokemon(
+    chosen_pokemon_data['name'],
+    chosen_pokemon_data['type'],
+    chosen_pokemon_data['level'],
+    Weapon(chosen_pokemon_data['attack_weapon']['name'], chosen_pokemon_data['attack_weapon']['power']),
+    Defense(chosen_pokemon_data['defense_weapon']['name'], chosen_pokemon_data['defense_weapon']['power']),
+    WINDOW_WIDTH - 120,
+    150
+)
+
+# Choix aléatoire pour l'adversaire
+chosen_enemy_data = random.choice(pokemon_data)
+leviator = Pokemon(
+    chosen_enemy_data['name'],
+    chosen_enemy_data['type'],
+    chosen_enemy_data['level'],
+    Weapon(chosen_enemy_data['attack_weapon']['name'], chosen_enemy_data['attack_weapon']['power']),
+    Defense(chosen_enemy_data['defense_weapon']['name'], chosen_enemy_data['defense_weapon']['power']),
+    150,
+    WINDOW_HEIGHT - 120
+)
+
 # Boucle de jeu
 running = True
 clock = pygame.time.Clock()
-
-# Création des Pokemon
-dracaufeu = Pokemon("Dracaufeu", "Feu/Vol", 75, Weapon("Lance-Flammes", 10), Defense("Ecailles", 8), 100, 100)
-leviator = Pokemon("Leviator", "Eau/Vol", 78, Weapon("Hydrocanon", 9), Defense("Ecailles", 8), 200, 200)
 
 while running:
     for event in pygame.event.get():
@@ -118,10 +169,10 @@ while running:
 
     # Combat
     result = dracaufeu.attack(leviator)
-    draw_text(result, 20, 20)
+    draw_text(result, 20, 20, BLACK)
 
     result = leviator.attack(dracaufeu)
-    draw_text(result, 20, 60)
+    draw_text(result, 50, 80, BLACK)
 
     # Rendu du plateau de jeu
     draw_board()
@@ -133,3 +184,4 @@ while running:
     # Mis à jour de l'affichage
     pygame.display.flip()
     clock.tick(FPS)
+

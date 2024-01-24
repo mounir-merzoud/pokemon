@@ -77,7 +77,7 @@ class GestionPokemon:
                             self.select_pokemon(nom)
                     # Ajout de la gestion du clic pour le nouveau bouton
                     if self.nouveau_bouton_rect.collidepoint(event.pos):
-                        menu = Menu()
+                        menu =Menu()
                         menu.run()
                         self.nouveau_bouton_clic()
 
