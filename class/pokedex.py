@@ -1,5 +1,5 @@
 import json
-
+from pokemon import *
 class Pokedex:
     def __init__(self):
         self.encountered_pokemon = []
@@ -11,14 +11,14 @@ class Pokedex:
             print(f"{name} a été ajouté au Pokedex.")
         else:
             print(f"{name} est déjà dans le Pokedex.")
-
+        
     def display_all_pokemon(self):
         # Affiche tous les Pokémon du Pokedex
         print("Pokémon rencontrés :")
         for pokemon in self.encountered_pokemon:
             print(pokemon)
         print(f"Nombre total de Pokémon rencontrés : {len(self.encountered_pokemon)}")
-
+        
     def save_to_json(self):
         # Sauvegarde les données du Pokedex dans un fichier JSON
         with open('pokedex.json', 'w') as json_file:
@@ -37,14 +37,10 @@ class Pokedex:
 
 # Exemple d'utilisation
 pokedex = Pokedex()
-pokedex.add_pokemon("Pikachu")
-pokedex.add_pokemon("Charmander")
-pokedex.add_pokemon("Pikachu")  # Cela devrait afficher un message de doublon
-pokedex.display_all_pokemon()
-
+pokedex.add_pokemon("Salameche")
+pokedex.add_pokemon("Carapuce")
 # Sauvegarde du Pokedex dans un fichier JSON
 pokedex.save_to_json()
-
 # Chargement du Pokedex depuis le fichier JSON
 pokedex.load_from_json()
 pokedex.display_all_pokemon()
