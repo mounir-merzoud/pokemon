@@ -59,7 +59,7 @@
     "niveau": 7,
     "type": {
       "nom": "Plante",
-      "points_de_vie": 80,
+      "points_de_vie": 85,
       "puissance_attaque": 35,
       "defense": 25
     },
@@ -107,7 +107,7 @@
       "puissance_attaque": 35,
       "defense": 30
     },
-    "images": "p10.png"
+    "images": "images/p10.png"
   },
   "pokemon11": {
     "nom": "Geodude",
@@ -118,7 +118,7 @@
       "puissance_attaque": 40,
       "defense": 25
     },
-    "images": "p11.png"
+    "images": "images/p11.png"
   },
   "pokemon12": {
     "nom": "Magnemite",

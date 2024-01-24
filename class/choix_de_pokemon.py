@@ -2,12 +2,17 @@ import pygame
 import json
 import os
 import sys
+import random
 from MENU import *
 
+pygame.init()
+# Couleur blanche définie
 blanc = (255, 255, 255)
 
+# Classe GestionPokemon
 class GestionPokemon:
     def __init__(self, fichier_json, hauteur_fenetre):
+       
         self.pokemon_data = self.charger_donnees(fichier_json)
         self.police = pygame.font.Font(None, 36)
         self.y_position = 50
@@ -17,6 +22,9 @@ class GestionPokemon:
 
         self.pokemon_selectionne = None
         self.nouveau_bouton_rect = pygame.Rect(600, 500, 150, 50)
+
+        self.adversaire_choisi = False
+        self.adversaire_aleatoire = None
 
     def charger_donnees(self, fichier_json):
         try:
@@ -29,7 +37,7 @@ class GestionPokemon:
     def charger_images_pokemon(self):
         self.images_pokemon = {}
         for nom, details in self.pokemon_data.items():
-            chemin_image = os.path.join("images", details["images"])
+            chemin_image = os.path.join("images", details.get("images", ""))
             if os.path.exists(chemin_image):
                 image = pygame.image.load(chemin_image)
                 self.images_pokemon[nom] = pygame.transform.scale(image, (50, 50))
@@ -40,9 +48,9 @@ class GestionPokemon:
             bouton_rect = pygame.Rect(50, y_position + 10, 50, 50)
             pygame.draw.rect(surface, blanc, bouton_rect, 2)
 
-            texte_nom = self.police.render(f"Nom: {details['nom']}", True, blanc)
+            texte_nom = self.police.render(f"Nom: {details.get('nom', '')}", True, blanc)
             surface.blit(texte_nom, (120, y_position))
-            texte_niveau = self.police.render(f"Niveau: {details['niveau']}", True, blanc)
+            texte_niveau = self.police.render(f"Niveau: {details.get('niveau', '')}", True, blanc)
             surface.blit(texte_niveau, (120, y_position + 30))
 
             if nom in self.images_pokemon:
@@ -68,6 +76,42 @@ class GestionPokemon:
                 self.pokemon_selectionne = data.get("selected_pokemon")
         except Exception as e:
             print(f"Une erreur s'est produite lors du chargement du Pokémon sélectionné : {e}")
+
+    def charger_pokemon_combat(self, fichier_json):
+        # Charger le Pokémon sélectionné depuis le fichier JSON
+        self.charger_pokemon_selectionne("pokemon_selectionne.json")
+
+        # Si le Pokémon sélectionné par l'utilisateur existe, l'utiliser
+        if self.pokemon_selectionne:
+            # Si le Pokémon adverse n'a pas été choisi, le choisir maintenant
+            if not self.adversaire_choisi:
+                self.adversaire_aleatoire = self.charger_pokemon_aleatoire(fichier_json)
+                self.adversaire_choisi = True
+
+            return self.pokemon_selectionne, self.adversaire_aleatoire
+
+        return None, None
+
+    def charger_pokemon_aleatoire(self, fichier_json):
+        # Choisir un Pokémon au hasard depuis le fichier JSON
+        if not hasattr(self, 'adversaire_aleatoire') or self.adversaire_aleatoire is None:
+            with open(fichier_json, 'r') as file:
+                data = json.load(file)
+                # Liste des noms de tous les Pokémon
+                pokemon_noms = list(data.keys())
+
+                # Retirer le Pokémon sélectionné par le joueur, s'il y en a un
+                if self.pokemon_selectionne and self.pokemon_selectionne['nom'] in pokemon_noms:
+                    pokemon_noms.remove(self.pokemon_selectionne['nom'])
+
+                # Choisir un Pokémon au hasard parmi ceux restants
+                if pokemon_noms:
+                    pokemon_aleatoire_nom = random.choice(pokemon_noms)
+                    adversaire_aleatoire = data[pokemon_aleatoire_nom]
+                    return {'nom': pokemon_aleatoire_nom, 'images': adversaire_aleatoire.get('images', 'p.png'), 'niveau': random.choice([1, 2, 3, 4, 5])}
+
+                else:
+                    return None
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -96,8 +140,8 @@ class GestionPokemon:
         print("Nouveau bouton cliqué!")
         if self.pokemon_selectionne:
             print("Informations du Pokémon sélectionné:")
-            print(f"Nom: {self.pokemon_selectionne['nom']}")
-            print(f"Niveau: {self.pokemon_selectionne['niveau']}")
+            print(f"Nom: {self.pokemon_selectionne.get('nom', '')}")
+            print(f"Niveau: {self.pokemon_selectionne.get('niveau', '')}")
 
     def run(self, fenetre):
         while True:
@@ -107,10 +151,8 @@ class GestionPokemon:
             pygame.display.flip()
 
 if __name__ == "__main__":
-    pygame.init()
     largeur_fenetre = 800
     hauteur_fenetre = 620
-    blanc = (255, 255, 255)
     fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
     pygame.display.set_caption("Choix de Pokémon")
 
@@ -118,3 +160,4 @@ if __name__ == "__main__":
     gestion_pokemon.run(fenetre)
     pygame.quit()
     sys.exit()
+
