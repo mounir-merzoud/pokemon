@@ -3,7 +3,7 @@ import random
 import json
 import os
 import sys
-from choix_de_pokemon import *
+
 
 pygame.init()
 
@@ -122,29 +122,9 @@ with open('pokedex.json', 'r') as f:
 with open('donnees_pokemon.json', 'r') as f:
     pokemon_data = json.load(f)
 
-# Choix aléatoire pour le joueur
-chosen_pokemon_data = random.choice(pokedex_data)
-dracaufeu = Pokemon(
-    chosen_pokemon_data['name'],
-    chosen_pokemon_data['type'],
-    chosen_pokemon_data['level'],
-    Weapon(chosen_pokemon_data['attack_weapon']['name'], chosen_pokemon_data['attack_weapon']['power']),
-    Defense(chosen_pokemon_data['defense_weapon']['name'], chosen_pokemon_data['defense_weapon']['power']),
-    WINDOW_WIDTH - 120,
-    150
-)
 
-# Choix aléatoire pour l'adversaire
-chosen_enemy_data = random.choice(pokemon_data)
-leviator = Pokemon(
-    chosen_enemy_data['name'],
-    chosen_enemy_data['type'],
-    chosen_enemy_data['level'],
-    Weapon(chosen_enemy_data['attack_weapon']['name'], chosen_enemy_data['attack_weapon']['power']),
-    Defense(chosen_enemy_data['defense_weapon']['name'], chosen_enemy_data['defense_weapon']['power']),
-    150,
-    WINDOW_HEIGHT - 120
-)
+
+
 
 # Boucle de jeu
 running = True

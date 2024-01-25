@@ -1,1 +1,1 @@
-{"selected_pokemon": {"nom": "Weedle", "niveau": 5, "images": "weedle.png", "type_dattaque": "insecte", "point_de_vie": 70, "puissance_dattaque": 40, "defense": 30}}
+{"selected_pokemon": {"nom": "Pidgey", "niveau": 4, "images": "pidgey.png", "type_dattaque": "normal", "point_de_vie": 80, "puissance_dattaque": 30, "defense": 10}}

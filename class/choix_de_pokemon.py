@@ -12,7 +12,6 @@ blanc = (255, 255, 255)
 # Classe GestionPokemon
 class GestionPokemon:
     def __init__(self, fichier_json, hauteur_fenetre):
-       
         self.pokemon_data = self.charger_donnees(fichier_json)
         self.police = pygame.font.Font(None, 36)
         self.y_position = 50
@@ -61,30 +60,34 @@ class GestionPokemon:
         surface.blit(texte_nouveau_bouton, (self.nouveau_bouton_rect.x + 10, self.nouveau_bouton_rect.y + 10))
 
     def afficher_informations_pokemon(self, surface):
-     if self.pokemon_selectionne:
-        pygame.draw.rect(surface, blanc, (350, 50, 350, 200), 2)
+        if self.pokemon_selectionne:
+            pygame.draw.rect(surface, blanc, (350, 50, 350, 200), 2)
 
-        texte_nom = self.police.render(f"Nom: {self.pokemon_selectionne.get('nom', '')}", True, blanc)
-        surface.blit(texte_nom, (380, 60))  # Ajuster la position du texte du nom
+            texte_nom = self.police.render(f"Nom: {self.pokemon_selectionne.get('nom', '')}", True, blanc)
+            surface.blit(texte_nom, (380, 60))  # Ajuster la position du texte du nom
 
-        texte_niveau = self.police.render(f"Niveau: {self.pokemon_selectionne.get('niveau', '')}", True, blanc)
-        surface.blit(texte_niveau, (380, 90))  # Ajuster la position du texte du niveau
+            texte_niveau = self.police.render(f"Niveau: {self.pokemon_selectionne.get('niveau', '')}", True, blanc)
+            surface.blit(texte_niveau, (380, 90))  # Ajuster la position du texte du niveau
 
-        texte_type_attaque = self.police.render(f"Type d'attaque: {self.pokemon_selectionne.get('type_dattaque', '')}", True, blanc)
-        surface.blit(texte_type_attaque, (380, 120))
+            texte_type_attaque = self.police.render(f"Type d'attaque: {self.pokemon_selectionne.get('type_dattaque', '')}", True, blanc)
+            surface.blit(texte_type_attaque, (380, 120))
 
-        texte_point_de_vie = self.police.render(f"Point de vie: {self.pokemon_selectionne.get('point_de_vie', '')}", True, blanc)
-        surface.blit(texte_point_de_vie, (380, 150))
+            texte_point_de_vie = self.police.render(f"Point de vie: {self.pokemon_selectionne.get('point_de_vie', '')}", True, blanc)
+            surface.blit(texte_point_de_vie, (380, 150))
 
-        texte_puissance_attaque = self.police.render(f"Puissance d'attaque: {self.pokemon_selectionne.get('puissance_dattaque', '')}", True, blanc)
-        surface.blit(texte_puissance_attaque, (380, 180))
+            texte_puissance_attaque = self.police.render(f"Puissance d'attaque: {self.pokemon_selectionne.get('puissance_dattaque', '')}", True, blanc)
+            surface.blit(texte_puissance_attaque, (380, 180))
 
-        texte_defense = self.police.render(f"Défense: {self.pokemon_selectionne.get('defense', '')}", True, blanc)
-        surface.blit(texte_defense, (380, 210))
+            texte_defense = self.police.render(f"Défense: {self.pokemon_selectionne.get('defense', '')}", True, blanc)
+            surface.blit(texte_defense, (380, 210))
 
     def select_pokemon(self, nom):
         print(f"Pokémon sélectionné : {nom}")
         self.pokemon_selectionne = self.pokemon_data.get(nom)
+        # Enregistrer les informations du Pokémon choisi dans un fichier JSON
+        if self.pokemon_selectionne:
+            with open("pokemon_choisi.json", 'w') as fichier:
+                json.dump({"chosen_pokemon": self.pokemon_selectionne}, fichier)
 
     def sauvegarder_pokemon_selectionne(self, fichier_json):
         if self.pokemon_selectionne:
@@ -98,6 +101,19 @@ class GestionPokemon:
                 self.pokemon_selectionne = data.get("selected_pokemon")
         except Exception as e:
             print(f"Une erreur s'est produite lors du chargement du Pokémon sélectionné : {e}")
+
+    def sauvegarder_pokemon_choisi_aleatoirement(self, fichier_json):
+        if self.adversaire_aleatoire:
+            with open(fichier_json, 'w') as fichier:
+                json.dump({"random_pokemon": self.adversaire_aleatoire}, fichier)
+
+    def charger_pokemon_choisi_aleatoirement(self, fichier_json):
+        try:
+            with open(fichier_json, 'r') as fichier:
+                data = json.load(fichier)
+                self.adversaire_aleatoire = data.get("random_pokemon")
+        except Exception as e:
+            print(f"Une erreur s'est produite lors du chargement du Pokémon choisi aléatoirement : {e}")
 
     def charger_pokemon_combat(self, fichier_json):
         # Charger le Pokémon sélectionné depuis le fichier JSON
@@ -130,8 +146,22 @@ class GestionPokemon:
                 if pokemon_noms:
                     pokemon_aleatoire_nom = random.choice(pokemon_noms)
                     adversaire_aleatoire = data[pokemon_aleatoire_nom]
-                    return {'nom': pokemon_aleatoire_nom, 'images': adversaire_aleatoire.get('images', 'p.png'), 'niveau': random.choice([1, 2, 3, 4, 5])}
+                    pokemon_choisi = {
+    'nom': pokemon_aleatoire_nom,
+    'images': adversaire_aleatoire.get('images', 'p.png'),
+    'niveau': random.choice([1, 2, 3, 4, 5]),
+    'type_dattaque': adversaire_aleatoire.get('type_dattaque', ''),
+    'point_de_vie': adversaire_aleatoire.get('point_de_vie', ''),
+    'puissance_dattaque': adversaire_aleatoire.get('puissance_dattaque', ''),
+    'defense': adversaire_aleatoire.get('defense', '')
+}
 
+
+                    # Enregistrer les informations du Pokémon choisi dans un fichier JSON
+                    with open("pokemon_choisi.json", 'w') as pokemon_file:
+                        json.dump(pokemon_choisi, pokemon_file)
+
+                    return pokemon_choisi
                 else:
                     return None
 
@@ -154,6 +184,7 @@ class GestionPokemon:
                             self.select_pokemon(nom)
                     if self.nouveau_bouton_rect.collidepoint(event.pos):
                         self.sauvegarder_pokemon_selectionne("pokemon_selectionne.json")
+                        self.sauvegarder_pokemon_choisi_aleatoirement("pokemon_choisi_aleatoirement.json")
                         menu = Menu()
                         menu.run()
                         self.nouveau_bouton_clic()
