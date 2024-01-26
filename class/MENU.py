@@ -70,18 +70,13 @@ class Menu:
                     self.Quitter_partie()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     for button_name, button_position in self.button_positions.items():
-<<<<<<< HEAD
-                        # Correction : Utilisation de self.font.render pour obtenir la taille du texte
-=======
                         # Correction : Utilisation de self.font.size pour obtenir la taille du texte
->>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893
                         button_rect = pygame.Rect(button_position, self.font.size(button_name))
                         if button_rect.collidepoint(event.pos):
                             self.handle_button_click(button_name)
 
             mouse_pos = pygame.mouse.get_pos()
-
-            # Mettez à jour la couleur du texte et du fond en fonction du survol
+# Mettez à jour la couleur du texte et du fond en fonction du survol
             for button_name, button_position in self.button_positions.items():
                 # Correction : Utilisation de self.font.size pour obtenir la taille du texte
                 button_rect = pygame.Rect(button_position, self.font.size(button_name))
@@ -94,11 +89,7 @@ class Menu:
                 background_color = self.black if is_hovering else self.white
 
                 # Créer une surface pour le fond avec une bordure arrondie
-<<<<<<< HEAD
-                button_surface = pygame.Surface((button_rect.width, button_rect.height))
-=======
                 button_surface = pygame.Surface((button_rect.width, button_rect.height), pygame.SRCALPHA)
->>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893
                 pygame.draw.rect(button_surface, background_color, button_surface.get_rect(), border_radius=10)
                 button_surface.set_alpha(150)  # Ajuster la transparence du fond
 
@@ -119,8 +110,4 @@ class Menu:
 
 if __name__ == "__main__":
     menu = Menu()
-<<<<<<< HEAD
     menu.run()
-=======
-    menu.run()
->>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893
