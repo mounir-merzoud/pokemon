@@ -187,6 +187,64 @@ class GestionPokemon:
                         self.sauvegarder_pokemon_choisi_aleatoirement("pokemon_choisi_aleatoirement.json")
                         menu = Menu()
                         menu.run()
+                        self.nouveau_bouton_clic()
+
+    def nouveau_bouton_clic(self):
+        print("Nouveau bouton cliqué!")
+        if self.pokemon_selectionne:
+            print("Informations du Pokémon sélectionné:")
+            print(f"Nom: {self.pokemon_selectionne.get('nom', '')}")
+            print(f"Niveau: {self.pokemon_selectionne.get('niveau', '')}")
+
+    def run(self, fenetre):
+        while True:
+            self.handle_events()
+            fenetre.fill((0, 0, 0))
+            self.afficher_boutons_pokemon(fenetre)
+            self.afficher_informations_pokemon(fenetre)
+            pygame.display.flip()
+
+if __name__ == "__main__":
+    largeur_fenetre = 800
+    hauteur_fenetre = 620
+    fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
+    pygame.display.set_caption("Choix de Pokémon")
+
+    gestion_pokemon = GestionPokemon("donnees_pokemon.json", hauteur_fenetre)
+    gestion_pokemon.run(fenetre)
+    pygame.quit()
+    sys.exit()
+
+                    # Enregistrer les informations du Pokémon choisi dans un fichier JSON
+                    with open("pokemon_choisi.json", 'w') as pokemon_file:
+                        json.dump(pokemon_choisi, pokemon_file)
+
+                    return pokemon_choisi
+                else:
+                    return None
+
+    def handle_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 4:  # Scroll up
+                    self.scroll_offset = max(0, self.scroll_offset - 1)
+                elif event.button == 5:  # Scroll down
+                    self.scroll_offset = min(len(self.pokemon_data) - self.lignes_visibles, self.scroll_offset + 1)
+                elif event.button == 1:  # Left click
+                    for i, (nom, details) in enumerate(list(self.pokemon_data.items())[self.scroll_offset:self.scroll_offset + self.lignes_visibles]):
+                        y_position = self.y_position + i * 80
+                        bouton_rect = pygame.Rect(50, y_position + 10, 50, 50)
+                        if bouton_rect.collidepoint(event.pos):
+                            print(f"Bouton {nom} cliqué!")
+                            self.select_pokemon(nom)
+                    if self.nouveau_bouton_rect.collidepoint(event.pos):
+                        self.sauvegarder_pokemon_selectionne("pokemon_selectionne.json")
+                        self.sauvegarder_pokemon_choisi_aleatoirement("pokemon_choisi_aleatoirement.json")
+                        menu = Menu()
+                        menu.run()
 
     def nouveau_bouton_clic(self):
         print("Nouveau bouton cliqué!")
