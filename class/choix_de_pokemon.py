@@ -2,20 +2,14 @@ import pygame
 import json
 import os
 import sys
-from MENU import * 
-
-blanc = (255, 255, 255)
-from MENU import * 
+from MENU import *
 
 blanc = (255, 255, 255)
 
 pygame.init()
-# Couleur blanche définie
-blanc = (255, 255, 255)
 
-# Classe GestionPokemon
+
 class GestionPokemon:
-    def __init__(self, fichier_json, hauteur_fenetre):
     def __init__(self, fichier_json, hauteur_fenetre):
         self.pokemon_data = self.charger_donnees(fichier_json)
         self.police = pygame.font.Font(None, 36)
@@ -23,11 +17,6 @@ class GestionPokemon:
         self.scroll_offset = 0
         self.lignes_visibles = int(hauteur_fenetre / 80)
         self.charger_images_pokemon()
-
-        # Ajout d'une nouvelle zone rectangulaire pour le nouveau bouton
-        self.nouveau_bouton_rect = pygame.Rect(600, 500, 150, 50)
-
-        # Ajout d'une nouvelle zone rectangulaire pour le nouveau bouton
         self.nouveau_bouton_rect = pygame.Rect(600, 500, 150, 50)
 
     def charger_donnees(self, fichier_json):
@@ -67,18 +56,7 @@ class GestionPokemon:
 
     def select_pokemon(self, nom):
         print(f"Pokémon sélectionné : {nom}")
-        # Ajoutez ici le code pour effectuer une action lorsque le bouton est cliqué.
-        # Par exemple, ouvrir une fenêtre d'informations sur le Pokémon.
-
-        # Dessiner le nouveau bouton
-        pygame.draw.rect(surface, blanc, self.nouveau_bouton_rect, 2)
-        texte_nouveau_bouton = self.police.render("back", True, blanc)
-        surface.blit(texte_nouveau_bouton, (self.nouveau_bouton_rect.x + 10, self.nouveau_bouton_rect.y + 10))
-
-    def select_pokemon(self, nom):
-        print(f"Pokémon sélectionné : {nom}")
-        # Ajoutez ici le code pour effectuer une action lorsque le bouton est cliqué.
-        # Par exemple, ouvrir une fenêtre d'informations sur le Pokémon.
+        # Ajouter ici le code pour effectuer une action lorsque le bouton est cliqué.
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -97,48 +75,29 @@ class GestionPokemon:
                         if bouton_rect.collidepoint(event.pos):
                             print(f"Bouton {nom} cliqué!")
                             self.select_pokemon(nom)
-                    # Ajout de la gestion du clic pour le nouveau bouton
+                    # Gestion du clic pour le nouveau bouton
                     if self.nouveau_bouton_rect.collidepoint(event.pos):
-                        menu = Menu()
+                        menu = menu()
                         menu.run()
                         self.nouveau_bouton_clic()
 
-    # Ajout de la nouvelle fonction pour gérer le clic du nouveau bouton
     def nouveau_bouton_clic(self):
         print("Nouveau bouton cliqué!")
-        # Ajoutez ici le code pour effectuer une action lorsque le nouveau bouton est cliqué.
-        self.select_pokemon(nom)
-                    # Ajout de la gestion du clic pour le nouveau bouton
-        if self.nouveau_bouton_rect.collidepoint(event.pos):
-                        menu = Menu()
-                        menu.run()
-                        self.nouveau_bouton_clic()
-
-    # Ajout de la nouvelle fonction pour gérer le clic du nouveau bouton
-    def nouveau_bouton_clic(self):
-        print("Nouveau bouton cliqué!")
-        # Ajoutez ici le code pour effectuer une action lorsque le nouveau bouton est cliqué.
+        # Ajouter ici le code pour effectuer une action lorsque le nouveau bouton est cliqué.
 
     def run(self, fenetre):
         while True:
             self.handle_events()
             fenetre.fill((0, 0, 0))
             self.afficher_boutons_pokemon(fenetre)
-            self.afficher_informations_pokemon(fenetre)
             pygame.display.flip()
 
 if __name__ == "__main__":
     largeur_fenetre = 800
     hauteur_fenetre = 620
-    hauteur_fenetre = 620
-    blanc = (255, 255, 255)
     fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
     pygame.display.set_caption("Choix de Pokémon")
 
-    gestion_pokemon = GestionPokemon("donnees_pokemon.json", hauteur_fenetre)
-    gestion_pokemon.run(fenetre)
-    pygame.quit()
-    sys.exit()
     gestion_pokemon = GestionPokemon("donnees_pokemon.json", hauteur_fenetre)
     gestion_pokemon.run(fenetre)
     pygame.quit()

@@ -124,10 +124,10 @@ while running:
 
     # Combat
     result = dracaufeu.attack(leviator)
-    draw_text(result, 20, 20, BLACK)
+    draw_text(result, 20, 20)
 
     result = leviator.attack(dracaufeu)
-    draw_text(result, 50, 80, BLACK)
+    draw_text(result, 50, 80)
 
     # Rendu du plateau de jeu
     draw_board()
