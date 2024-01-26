@@ -1,5 +1,6 @@
 import pygame
 import json
+from combat import *
 
 class Pokedex:
     
@@ -31,12 +32,15 @@ class Pokedex:
                 f.seek(0)
                 print(i)
                 json.dump(self.pokedex,f,indent=2)
-        
+            if self.pokemon not in self.pokedex:
+                self.pokedex.append(self.pokemon)
+    
+            
         
     
         
         
-          
+       
 pokedex = Pokedex()
 pokedex.creation_json()
 pokedex.pokemon_debut()
