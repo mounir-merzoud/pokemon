@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 
 import donnees_pokemon.json
-from choix_de_pokemon import *
+from class.choix_de_pokemon import *
 from map import *
 
 import random

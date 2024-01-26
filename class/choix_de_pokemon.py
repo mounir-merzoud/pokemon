@@ -2,17 +2,12 @@ import pygame
 import json
 import os
 import sys
-<<<<<<< HEAD:choix_de_pokemon.py
 from MENU import * 
 
 blanc = (255, 255, 255)
 from MENU import * 
 
 blanc = (255, 255, 255)
-=======
-import random
-from MENU import *
->>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/choix_de_pokemon.py
 
 pygame.init()
 # Couleur blanche définie

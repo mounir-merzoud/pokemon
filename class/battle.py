@@ -1,6 +1,6 @@
 import pygame
 import sys
-from choix_de_pokemon import GestionPokemon
+from class.choix_de_pokemon import GestionPokemon
 from pokemon import Pokemon
 
 class BarreDeVie:

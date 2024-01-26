@@ -1,7 +1,7 @@
 import pygame
 import sys
 
-from choix_de_pokemon import *
+from class.choix_de_pokemon import *
 
 # Initialisation de Pygame
 pygame.init()
