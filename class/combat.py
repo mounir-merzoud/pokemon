@@ -3,7 +3,7 @@ import random
 import json
 import os
 import sys
-from choix_de_pokemon import *
+
 
 pygame.init()
 
@@ -122,6 +122,7 @@ with open('pokedex.json', 'r') as f:
 with open('donnees_pokemon.json', 'r') as f:
     pokemon_data = json.load(f)
 
+<<<<<<< HEAD
 # Choix aléatoire pour le joueur
 choix_de_pokemon = random.choice(choix_de_pokemon)
 dracaufeu = Pokemon(
@@ -145,6 +146,11 @@ leviator = Pokemon(
     150,
     WINDOW_HEIGHT - 120
 )
+=======
+
+
+
+>>>>>>> f12e38fb3a6e35d3e6a6902247a522f1c066a4c7
 
 # Boucle de jeu
 running = True

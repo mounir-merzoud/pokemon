@@ -1,1 +1,1 @@
-{"selected_pokemon": {"nom": "G\u00e9odude", "niveau": 10, "type": {"nom": "Terre", "points_de_vie": 80, "puissance_attaque": 40, "defense": 10}, "images": "p3.jpg"}}
+{"selected_pokemon": {"nom": "Weedle", "niveau": 5, "images": "weedle.png", "type_dattaque": "terre", "point_de_vie": 75, "puissance_dattaque": 25, "defense": 30}}
