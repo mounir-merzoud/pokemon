@@ -1,1 +1,1 @@
-{"nom": "Bulbasaur", "images": "bulbasaur.png", "niveau": 5, "type_dattaque": "eau", "point_de_vie": 90, "puissance_dattaque": 40, "defense": 20}
+{"nom": "Ivysaur", "images": "ivysaur.png", "niveau": 2, "type_dattaque": "normal", "point_de_vie": 110, "puissance_dattaque": 20, "defense": 30}
