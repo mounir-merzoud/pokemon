@@ -1,9 +1,84 @@
 import pygame
 import sys
 from MENU import *
+<<<<<<< HEAD:map.py
+=======
 from battle import *
+>>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/map.py
 
 pygame.init()
+images_paths = [
+    "images/p1.png",
+    "images/p2.png",
+    "images/p5.png",
+    "images/p8.png",
+    "images/p9.png",
+    "images/p10.png",
+    "images/p11.png",
+    "images/p14.png",
+    "images/p16.png",
+]
+
+# Positions fixes pour les images Pokémon
+pokemon_positions = [
+    (100, 100),
+    (200, 150),
+    (300, 200),
+    (400, 250),
+    (500, 300),
+    (100, 350),
+    (200, 400),
+    (300, 450),
+    (400, 500),
+]
+
+images_paths = [
+    "images/p1.png",
+    # "images/p2.png",
+    # "images/p5.png",
+    # "images/p8.png",
+    # "images/p9.png",
+    # "images/p10.png",
+    # "images/p11.png",
+    # "images/p14.png",
+    # "images/p16.png",
+]
+
+pokemon_positions = [
+    (100, 100),
+    (200, 150),
+    (300, 200),
+    (400, 250),
+    (500, 300),
+    (100, 350),
+    (200, 400),
+    (300, 450),
+    (400, 500),
+]
+
+images_paths = [
+    "images/p1.png",
+    # "images/p2.png",
+    # "images/p5.png",
+    # "images/p8.png",
+    # "images/p9.png",
+    # "images/p10.png",
+    # "images/p11.png",
+    # "images/p14.png",
+    # "images/p16.png",
+]
+
+pokemon_positions = [
+    (100, 100),
+    (200, 150),
+    (300, 200),
+    (400, 250),
+    (500, 300),
+    (100, 350),
+    (200, 400),
+    (300, 450),
+    (400, 500),
+]
 
 class Map:
     def __init__(self, map_image_path, screen_width, screen_height, zoom_factor=3.0):
@@ -64,6 +139,10 @@ pokemon_map = Map(map_image_path, screen_width, screen_height, zoom_factor=3.0)
 joueur_image_path = "images/sacha.png"
 joueur = Joueur(joueur_image_path, screen_width, screen_height, player_width=60, player_height=60)
 
+<<<<<<< HEAD:map.py
+# Position du bouton "Back"
+=======
+>>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/map.py
 back_button_rect = pygame.Rect(20, 20, 80, 40)
 back_button_text = pygame.font.Font(None, 36).render("Back", True, (255, 255, 255))
 
@@ -72,9 +151,17 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+<<<<<<< HEAD:map.py
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1 and back_button_rect.collidepoint(event.pos):
+                # Ajoutez ici le code pour revenir au menu principal
+                 menu = Menu()
+                 menu.run()
+=======
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and back_button_rect.collidepoint(event.pos):
             menu = Menu()
             menu.run()
+>>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/map.py
 
     keys = pygame.key.get_pressed()
     dx, dy = joueur.move(keys)

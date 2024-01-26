@@ -2,8 +2,17 @@ import pygame
 import json
 import os
 import sys
+<<<<<<< HEAD:choix_de_pokemon.py
+from MENU import * 
+
+blanc = (255, 255, 255)
+from MENU import * 
+
+blanc = (255, 255, 255)
+=======
 import random
 from MENU import *
+>>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/choix_de_pokemon.py
 
 pygame.init()
 # Couleur blanche définie
@@ -12,6 +21,10 @@ blanc = (255, 255, 255)
 # Classe GestionPokemon
 class GestionPokemon:
     def __init__(self, fichier_json, hauteur_fenetre):
+<<<<<<< HEAD:choix_de_pokemon.py
+    def __init__(self, fichier_json, hauteur_fenetre):
+=======
+>>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/choix_de_pokemon.py
         self.pokemon_data = self.charger_donnees(fichier_json)
         self.police = pygame.font.Font(None, 36)
         self.y_position = 50
@@ -19,11 +32,19 @@ class GestionPokemon:
         self.lignes_visibles = int(hauteur_fenetre / 80)
         self.charger_images_pokemon()
 
+<<<<<<< HEAD:choix_de_pokemon.py
+        # Ajout d'une nouvelle zone rectangulaire pour le nouveau bouton
+        self.nouveau_bouton_rect = pygame.Rect(600, 500, 150, 50)
+
+        # Ajout d'une nouvelle zone rectangulaire pour le nouveau bouton
+        self.nouveau_bouton_rect = pygame.Rect(600, 500, 150, 50)
+=======
         self.pokemon_selectionne = None
         self.nouveau_bouton_rect = pygame.Rect(600, 500, 150, 50)
 
         self.adversaire_choisi = False
         self.adversaire_aleatoire = None
+>>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/choix_de_pokemon.py
 
     def charger_donnees(self, fichier_json):
         try:
@@ -55,10 +76,30 @@ class GestionPokemon:
             if nom in self.images_pokemon:
                 surface.blit(self.images_pokemon[nom], (50, y_position + 10))
 
+<<<<<<< HEAD:choix_de_pokemon.py
+        # Dessiner le nouveau bouton
+=======
+>>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/choix_de_pokemon.py
         pygame.draw.rect(surface, blanc, self.nouveau_bouton_rect, 2)
         texte_nouveau_bouton = self.police.render("back", True, blanc)
         surface.blit(texte_nouveau_bouton, (self.nouveau_bouton_rect.x + 10, self.nouveau_bouton_rect.y + 10))
 
+<<<<<<< HEAD:choix_de_pokemon.py
+    def select_pokemon(self, nom):
+        print(f"Pokémon sélectionné : {nom}")
+        # Ajoutez ici le code pour effectuer une action lorsque le bouton est cliqué.
+        # Par exemple, ouvrir une fenêtre d'informations sur le Pokémon.
+
+        # Dessiner le nouveau bouton
+        pygame.draw.rect(surface, blanc, self.nouveau_bouton_rect, 2)
+        texte_nouveau_bouton = self.police.render("back", True, blanc)
+        surface.blit(texte_nouveau_bouton, (self.nouveau_bouton_rect.x + 10, self.nouveau_bouton_rect.y + 10))
+
+    def select_pokemon(self, nom):
+        print(f"Pokémon sélectionné : {nom}")
+        # Ajoutez ici le code pour effectuer une action lorsque le bouton est cliqué.
+        # Par exemple, ouvrir une fenêtre d'informations sur le Pokémon.
+=======
     def afficher_informations_pokemon(self, surface):
         if self.pokemon_selectionne:
             pygame.draw.rect(surface, blanc, (350, 50, 350, 200), 2)
@@ -164,6 +205,7 @@ class GestionPokemon:
                     return pokemon_choisi
                 else:
                     return None
+>>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/choix_de_pokemon.py
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -182,19 +224,42 @@ class GestionPokemon:
                         if bouton_rect.collidepoint(event.pos):
                             print(f"Bouton {nom} cliqué!")
                             self.select_pokemon(nom)
+<<<<<<< HEAD:choix_de_pokemon.py
+                    # Ajout de la gestion du clic pour le nouveau bouton
+                    if self.nouveau_bouton_rect.collidepoint(event.pos):
+=======
                     if self.nouveau_bouton_rect.collidepoint(event.pos):
                         self.sauvegarder_pokemon_selectionne("pokemon_selectionne.json")
                         self.sauvegarder_pokemon_choisi_aleatoirement("pokemon_choisi_aleatoirement.json")
+>>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/choix_de_pokemon.py
                         menu = Menu()
                         menu.run()
                         self.nouveau_bouton_clic()
 
+<<<<<<< HEAD:choix_de_pokemon.py
+    # Ajout de la nouvelle fonction pour gérer le clic du nouveau bouton
+    def nouveau_bouton_clic(self):
+        print("Nouveau bouton cliqué!")
+        # Ajoutez ici le code pour effectuer une action lorsque le nouveau bouton est cliqué.
+                            self.select_pokemon(nom)
+                    # Ajout de la gestion du clic pour le nouveau bouton
+                    if self.nouveau_bouton_rect.collidepoint(event.pos):
+                        menu = Menu()
+                        menu.run()
+                        self.nouveau_bouton_clic()
+
+    # Ajout de la nouvelle fonction pour gérer le clic du nouveau bouton
+    def nouveau_bouton_clic(self):
+        print("Nouveau bouton cliqué!")
+        # Ajoutez ici le code pour effectuer une action lorsque le nouveau bouton est cliqué.
+=======
     def nouveau_bouton_clic(self):
         print("Nouveau bouton cliqué!")
         if self.pokemon_selectionne:
             print("Informations du Pokémon sélectionné:")
             print(f"Nom: {self.pokemon_selectionne.get('nom', '')}")
             print(f"Niveau: {self.pokemon_selectionne.get('niveau', '')}")
+>>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/choix_de_pokemon.py
 
     def run(self, fenetre):
         while True:
@@ -207,6 +272,11 @@ class GestionPokemon:
 if __name__ == "__main__":
     largeur_fenetre = 800
     hauteur_fenetre = 620
+<<<<<<< HEAD:choix_de_pokemon.py
+    hauteur_fenetre = 620
+    blanc = (255, 255, 255)
+=======
+>>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/choix_de_pokemon.py
     fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
     pygame.display.set_caption("Choix de Pokémon")
 
@@ -214,3 +284,10 @@ if __name__ == "__main__":
     gestion_pokemon.run(fenetre)
     pygame.quit()
     sys.exit()
+<<<<<<< HEAD:choix_de_pokemon.py
+    gestion_pokemon = GestionPokemon("donnees_pokemon.json", hauteur_fenetre)
+    gestion_pokemon.run(fenetre)
+    pygame.quit()
+    sys.exit()
+=======
+>>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893:class/choix_de_pokemon.py
