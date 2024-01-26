@@ -1,20 +1,11 @@
 import pygame
 import random
-<<<<<<< HEAD
-=======
-import json
-import os
->>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893
 import sys
 
 
 pygame.init()
 
-<<<<<<< HEAD
 # Paramètres de la fenêtre
-=======
-# Parametres de la fenetre
->>>>>>> 94164f02a6e0c40287163bd54fd8bebb39abe893
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 FPS = 30

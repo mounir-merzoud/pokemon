@@ -76,7 +76,8 @@ class Menu:
                             self.handle_button_click(button_name)
 
             mouse_pos = pygame.mouse.get_pos()
-# Mettez à jour la couleur du texte et du fond en fonction du survol
+
+            # Mettez à jour la couleur du texte et du fond en fonction du survol
             for button_name, button_position in self.button_positions.items():
                 # Correction : Utilisation de self.font.size pour obtenir la taille du texte
                 button_rect = pygame.Rect(button_position, self.font.size(button_name))
@@ -111,4 +112,3 @@ class Menu:
 if __name__ == "__main__":
     menu = Menu()
     menu.run()
-    
