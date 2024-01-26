@@ -64,8 +64,9 @@ class Battle:
             degat = 10
         elif attaquant['type_dattaque'] == "feu":
             degat = 20
-        else:
-            degat = 5  # Normal
+        elif attaquant['type_dattaque'] == "normal":
+            degat = 5   
+    
 
         cible["point_de_vie"] -= degat
 
@@ -94,7 +95,7 @@ class Battle:
                 self.pokemon1 = pokemon1
                 nom_pokemon1 = pokemon1['nom']
                 niveau_pokemon1 = pokemon1['niveau']
-                chemin_image_pokemon1 = f"C:\\Users\\lo\\Desktop\\bbt\\PYTHON\\P_O_O\\pokemon\\images\\{pokemon1['images']}"
+                chemin_image_pokemon1 = f"images/{pokemon1['images']}"
                 type_dattaque_pokemon1 = pokemon1['type_dattaque']
                 point_de_vie_pokemon1 = pokemon1['point_de_vie']
                 puissance_dattaque_pokemon1 = pokemon1['puissance_dattaque']
@@ -122,7 +123,7 @@ class Battle:
                 self.pokemon2 = pokemon2
                 nom_pokemon2 = pokemon2['nom']
                 niveau_pokemon2 = pokemon2['niveau']
-                chemin_image_pokemon2 = f"C:\\Users\\lo\\Desktop\\bbt\\PYTHON\\P_O_O\\pokemon\\images\\{pokemon2['images']}"
+                chemin_image_pokemon2 = f"images/{pokemon2['images']}"
                 type_dattaque_pokemon2 = pokemon2['type_dattaque']
                 point_de_vie_pokemon2 = pokemon2['point_de_vie']
                 puissance_dattaque_pokemon2 = pokemon2['puissance_dattaque']
