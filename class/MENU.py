@@ -1,126 +1,96 @@
 import pygame
 import sys
+
 from choix_de_pokemon import *
 
-class Menu:
-    def __init__(self):
-        pygame.init()
+# Initialisation de Pygame
+pygame.init()
 
-        # Définir la taille de la fenêtre
-        self.screen = pygame.display.set_mode((800, 620))
-        pygame.display.set_caption("Menu")
+# Paramètres de la fenêtre
+largeur_fenetre = 800
+hauteur_fenetre = 600
 
-        # Charger l'image de fond
-        self.bg = pygame.image.load("images/background.jpeg")
+# Couleurs
+rouge = (255, 0, 0)
+blanc = (255, 255, 255)
 
-        # Définir la police et la taille du texte
-        self.font = pygame.font.Font(pygame.font.get_default_font(), 36)
+# Création de la fenêtre
+fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
+pygame.display.set_caption("Menu Pokémon")
 
-        # Couleurs
-        self.white = (255, 255, 255)
-        self.black = (0, 0, 0)
-        self.red = (255, 0, 0)
+# Chargement de l'image de fond
+image_fond = pygame.image.load("images/Pokemon-fond.png")
+image_fond = pygame.transform.scale(image_fond, (largeur_fenetre, hauteur_fenetre))
 
-        # Position et texte des boutons
-        self.button_positions = {
-            'Nouvelle_partie': (50, 50),
-            'Choisir_pokemon': (50, 100),
-            'Acceder_pokedex': (50, 150),
-            'Quitter_partie': (50, 200)
-        }
+# Paramètres des boutons
+bouton_largeur = 300
+bouton_hauteur = 50
 
-        # Définir les actions des boutons
-        self.button_actions = {
-            'Nouvelle_partie': self.Nouvelle_partie,
-            'Choisir_pokemon': self.Choisir_pokemon,
-            'Acceder_pokedex': self.Acceder_pokedex,
-            'Quitter_partie': self.Quitter_partie
-        }
+# Font
+police = pygame.font.Font(None, 36)
+#gestion_pokemon = GestionPokemon("../donnees_pokemon.json")
 
-    def Nouvelle_partie(self):
-        from map import Map
-        nouvelle_partie_map = Map()
-        nouvelle_partie_map.run()
+# Fonction pour lancer une nouvelle partie
+def nouvelle_partie():
+    print("Lancer une nouvelle partie")
+    from map import map # Importez la classe Map depuis votre fichier map.py
+    nouvelle_partie_map = Map()  # Créez une nouvelle instance de Map
+    nouvelle_partie_map.run() 
+# Fonction pour choisir les Pokémon
+def choisir_pokemon():
+    print("Choisir Pokémon : Vous avez cliqué sur le bouton Choisir Pokémon")
+    gestion_pokemon = GestionPokemon("donnees_pokemon.json")
+    gestion_pokemon.run()
+  
+# Fonction pour accéder au Pokédex
+def acceder_pokedex():
+    print("Entrer sur le Pokédex")
 
-    def Choisir_pokemon(self):
-        gestion_pokemon = GestionPokemon("donnees_pokemon.json", 620)
-        gestion_pokemon.run(self.screen)
+# Fonction pour quitter la partie
+def quitter_partie():
+    pygame.quit()
+    sys.exit()
 
-    def Acceder_pokedex(self):
-        print("Entrer sur le Pokédex")
+# Boucle principale
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            # Gestion des clics de souris sur les boutons
+            x, y = event.pos
+            if 100 <= x <= 100 + bouton_largeur and 200 <= y <= 200 + bouton_hauteur:
+                nouvelle_partie()
+            elif 100 <= x <= 100 + bouton_largeur and 300 <= y <= 300 + bouton_hauteur:
+                choisir_pokemon()
+            elif 100 <= x <= 100 + bouton_largeur and 400 <= y <= 400 + bouton_hauteur:
+                acceder_pokedex()
+            elif 100 <= x <= 100 + bouton_largeur and 500 <= y <= 500 + bouton_hauteur:
+                quitter_partie()
 
-    def Quitter_partie(self):
-        pygame.quit()
-        sys.exit()
+    # Affichage de l'image de fond
+    fenetre.blit(image_fond, (0, 0))
 
-    def check_button_hover(self, mouse_pos, button_rect):
-        return button_rect.collidepoint(mouse_pos)
+    # Dessin des boutons
+    pygame.draw.rect(fenetre, rouge, (100, 200, bouton_largeur, bouton_hauteur))  # Bouton nouvelle partie
+    pygame.draw.rect(fenetre, rouge, (100, 300, bouton_largeur, bouton_hauteur))  # Bouton choisir Pokémon
+    pygame.draw.rect(fenetre, rouge, (100, 400, bouton_largeur, bouton_hauteur))  # Bouton accéder au Pokédex
+    pygame.draw.rect(fenetre, rouge, (100, 500, bouton_largeur, bouton_hauteur))  # Bouton quitter la partie
 
-    def handle_button_click(self, button_name):
-        if button_name in self.button_actions:
-            self.button_actions[button_name]()
+    # Ajout du texte
+    texte_nouvelle_partie = police.render("Nouvelle Partie", True, blanc)
+    fenetre.blit(texte_nouvelle_partie, (120, 215))
 
-    def run(self):
-        while True:
-            # Afficher l'arrière-plan
-            self.screen.blit(self.bg, (0, 0))
+    texte_choisir_pokemon = police.render("Choisir Pokémon", True, blanc)
+    fenetre.blit(texte_choisir_pokemon, (120, 315))
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.Quitter_partie()
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    for button_name, button_position in self.button_positions.items():
-<<<<<<< HEAD
-                        # Correction : Utilisation de self.font.size pour obtenir la taille du texte
-=======
-                        # Correction : Utilisation de self.font.render pour obtenir la taille du texte
->>>>>>> main
-                        button_rect = pygame.Rect(button_position, self.font.size(button_name))
-                        if button_rect.collidepoint(event.pos):
-                            self.handle_button_click(button_name)
+    texte_acceder_pokedex = police.render("Accéder au Pokédex", True, blanc)
+    fenetre.blit(texte_acceder_pokedex, (120, 415))
 
-            mouse_pos = pygame.mouse.get_pos()
+    texte_quitter_partie = police.render("Quitter la partie", True, blanc)
+    fenetre.blit(texte_quitter_partie, (120, 515))
 
-            # Mettez à jour la couleur du texte et du fond en fonction du survol
-            for button_name, button_position in self.button_positions.items():
-                # Correction : Utilisation de self.font.size pour obtenir la taille du texte
-                button_rect = pygame.Rect(button_position, self.font.size(button_name))
-                is_hovering = self.check_button_hover(mouse_pos, button_rect)
+    # Rafraîchissement de l'écran
+    pygame.display.flip()
 
-                # Couleur du texte
-                text_color = self.red if is_hovering else self.black
-
-                # Couleur du fond
-                background_color = self.black if is_hovering else self.white
-
-                # Créer une surface pour le fond avec une bordure arrondie
-<<<<<<< HEAD
-                button_surface = pygame.Surface((button_rect.width, button_rect.height), pygame.SRCALPHA)
-=======
-                button_surface = pygame.Surface((button_rect.width, button_rect.height))
->>>>>>> main
-                pygame.draw.rect(button_surface, background_color, button_surface.get_rect(), border_radius=10)
-                button_surface.set_alpha(150)  # Ajuster la transparence du fond
-
-                # Afficher le fond
-                self.screen.blit(button_surface, button_rect.topleft)
-
-                # Afficher le texte avec la couleur mise à jour
-                text_surface = self.font.render(button_name, True, text_color)
-                self.screen.blit(text_surface, button_rect.topleft)
-
-                # Définir le curseur en fonction du survol
-                if is_hovering:
-                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
-                else:
-                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
-
-            pygame.display.flip()
-
-if __name__ == "__main__":
-    menu = Menu()
-<<<<<<< HEAD
-    menu.run()
-=======
-    menu.run()
->>>>>>> main
