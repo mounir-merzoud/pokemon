@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 {"nom": "Charmander", "images": "charmander.png", "niveau": 3, "type_dattaque": "feu", "point_de_vie": 60, "puissance_dattaque": 20, "defense": 30}
 =======
 {"chosen_pokemon": {"nom": "Pidgey", "niveau": 4, "images": "pidgey.png", "type_dattaque": "normal", "point_de_vie": 80, "puissance_dattaque": 30, "defense": 10}}
@@ -7,3 +8,6 @@
 =======
 {"nom": "Ivysaur", "images": "ivysaur.png", "niveau": 2, "type_dattaque": "normal", "point_de_vie": 110, "puissance_dattaque": 20, "defense": 30}
 >>>>>>> main
+=======
+{"nom": "Charmander", "images": "charmander.png", "niveau": 3, "type_dattaque": "feu", "point_de_vie": 60, "puissance_dattaque": 20, "defense": 30}
+>>>>>>> combat
