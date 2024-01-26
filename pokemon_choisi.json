@@ -1,1 +1,1 @@
-{"nom": "Ivysaur", "images": "ivysaur.png", "niveau": 3, "type_dattaque": "normal", "point_de_vie": 110, "puissance_dattaque": 20, "defense": 30}
+{"nom": "Charmander", "images": "charmander.png", "niveau": 3, "type_dattaque": "feu", "point_de_vie": 60, "puissance_dattaque": 20, "defense": 30}
