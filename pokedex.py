@@ -1,6 +1,6 @@
 import pygame
 import json
-from combat import *
+#from combat import *
 
 class Pokedex:
     
@@ -44,34 +44,3 @@ class Pokedex:
 pokedex = Pokedex()
 pokedex.creation_json()
 pokedex.pokemon_debut()
-
-
-
-
-  
-
-    # def save_to_json(self):
-    #     with open('pokedex.json', 'w') as json_file:
-    #         json.dump(self.pokedex, json_file, indent=2)
-    #         print("Pokedex sauvegardé avec succès")
-
-    # def load_from_json(self):
-    #     try:
-    #         with open('pokedex.json', 'r') as json_file:
-    #             self.pokedex = json.load(json_file)
-    #             print("Pokedex chargé avec succès.")
-    #     except FileNotFoundError:
-    #         print("Aucun fichier Pokedex trouvé.")
-    
-    # def get_pokemon_for_combat(self):
-    #     return self.pokedex
-
-
-
-
-
-# # Sauvegarde du Pokedex dans un fichier JSON
-# pokedex.save_to_json()
-
-# # Chargement du Pokedex depuis le fichier JSON
-# pokedex.load_from_json()
