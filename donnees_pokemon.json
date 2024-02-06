@@ -1,200 +1,164 @@
 {
-  "pokemon1": {
-    "nom": "Salameche",
+  "Weedle": {
+    "nom": "Weedle",
     "niveau": 5,
-    "type": {
-      "nom": "Feu",
-      "points_de_vie": 100,
-      "puissance_attaque": 30,
-      "defense": 20
-    },
-    "images": "p1.png"
+    "images": "weedle.png",
+    "type_dattaque": "terre",
+    "point_de_vie": 75,
+    "puissance_dattaque": 25,
+    "defense": 30
   },
-  "pokemon2": {
-    "nom": "Carapuce",
-    "niveau": 5,
-    "type": {
-      "nom": "Eau",
-      "points_de_vie": 120,
-      "puissance_attaque": 25,
-      "defense": 25
-    },
-    "images": "p2.png"
+  "Wartortle": {
+    "nom": "Wartortle",
+    "niveau": 2,
+    "images": "wartortle.png",
+    "type_dattaque": "eau",
+    "point_de_vie": 100,
+    "puissance_dattaque": 20,
+    "defense": 20
   },
-  "pokemon3": {
-    "nom": "G\u00e9odude",
-    "niveau": 10,
-    "type": {
-      "nom": "Terre",
-      "points_de_vie": 80,
-      "puissance_attaque": 40,
-      "defense": 10
-    },
-    "images": "p3.jpg"
+  "Venusaur": {
+    "nom": "Venusaur",
+    "niveau": 1,
+    "images": "venusaur.png",
+    "type_dattaque": "terre",
+    "point_de_vie": 90,
+    "puissance_dattaque": 20,
+    "defense": 60
   },
-  "pokemon4": {
-    "nom": "Rattata",
-    "niveau": 3,
-    "type": {
-      "nom": "Normal",
-      "points_de_vie": 50,
-      "puissance_attaque": 50,
-      "defense": 50
-    },
-    "images": "p4.png"
-  },
-  "pokemon5": {
-    "nom": "Pikachu",
-    "niveau": 8,
-    "type": {
-      "nom": "Électrique",
-      "points_de_vie": 60,
-      "puissance_attaque": 55,
-      "defense": 30
-    },
-    "images": "p5.png"
-  },
-  "pokemon6": {
-    "nom": "Bulbizarre",
-    "niveau": 7,
-    "type": {
-      "nom": "Plante",
-      "points_de_vie": 85,
-      "puissance_attaque": 35,
-      "defense": 25
-    },
-    "images": "p6.png"
-  },
-  "pokemon7": {
+  "Squirtle": {
     "nom": "Squirtle",
-    "niveau": 6,
-    "type": {
-      "nom": "Eau",
-      "points_de_vie": 90,
-      "puissance_attaque": 40,
-      "defense": 30
-    },
-    "images": "p7.png"
+    "niveau": 5,
+    "images": "squirtle.png",
+    "type_dattaque": "eau",
+    "point_de_vie": 100,
+    "puissance_dattaque": 50,
+    "defense": 20
   },
-  "pokemon8": {
-    "nom": "Jigglypuff",
+  "Pidgey": {
+    "nom": "Pidgey",
     "niveau": 4,
-    "type": {
-      "nom": "Fée",
-      "points_de_vie": 70,
-      "puissance_attaque": 20,
-      "defense": 15
-    },
-    "images": "p8.png"
+    "images": "pidgey.png",
+    "type_dattaque": "normal",
+    "point_de_vie": 80,
+    "puissance_dattaque": 30,
+    "defense": 10
   },
-  "pokemon9": {
-    "nom": "Meowth",
+  "Pidgeotto": {
+    "nom": "Pidgeotto",
+    "niveau": 3,
+    "images": "pidgeotto.png",
+    "type_dattaque": "normal",
+    "point_de_vie": 90,
+    "puissance_dattaque": 40,
+    "defense": 20
+  },
+  "Pidgeot": {
+    "nom": "Pidgeot",
+    "niveau": 1,
+    "images": "pidgeot.png",
+    "type_dattaque": "terre",
+    "point_de_vie": 90,
+    "puissance_dattaque": 20,
+    "defense": 10
+  },
+  "Metapod": {
+    "nom": "Metapod",
+    "niveau": 2,
+    "images": "metapod.png",
+    "type_dattaque": "feu",
+    "point_de_vie": 100,
+    "puissance_dattaque": 40,
+    "defense": 20
+  },
+  "Kakuna": {
+    "nom": "Kakuna",
+    "niveau": 3,
+    "images": "kakuna.png",
+    "type_dattaque": "terre",
+    "point_de_vie": 70,
+    "puissance_dattaque": 20,
+    "defense": 10
+  },
+  "Ivysaur": {
+    "nom": "Ivysaur",
+    "niveau": 4,
+    "images": "ivysaur.png",
+    "type_dattaque": "normal",
+    "point_de_vie": 110,
+    "puissance_dattaque": 20,
+    "defense": 30
+  },
+  "Charmeleon": {
+    "nom": "Charmeleon",
     "niveau": 5,
-    "type": {
-      "nom": "Normal",
-      "points_de_vie": 60,
-      "puissance_attaque": 45,
-      "defense": 25
-    },
-    "images": "p9.png"
+    "images": "charmeleon.png",
+    "type_dattaque": "feu",
+    "point_de_vie": 60,
+    "puissance_dattaque": 10,
+    "defense": 20
   },
-  "pokemon10": {
-    "nom": "Psyduck",
-    "niveau": 7,
-    "type": {
-      "nom": "Eau",
-      "points_de_vie": 80,
-      "puissance_attaque": 35,
-      "defense": 30
-    },
-    "images": "images/p10.png"
+  "Charmander": {
+    "nom": "Charmander",
+    "niveau": 1,
+    "images": "charmander.png",
+    "type_dattaque": "feu",
+    "point_de_vie": 60,
+    "puissance_dattaque": 20,
+    "defense": 30
   },
-  "pokemon11": {
-    "nom": "Geodude",
-    "niveau": 9,
-    "type": {
-      "nom": "Roche",
-      "points_de_vie": 70,
-      "puissance_attaque": 40,
-      "defense": 25
-    },
-    "images": "images/p11.png"
+  "Charizard": {
+    "nom": "Charizard",
+    "niveau": 3,
+    "images": "charizard.png",
+    "type_dattaque": "feu",
+    "point_de_vie": 90,
+    "puissance_dattaque": 10,
+    "defense": 20
   },
-  "pokemon12": {
-    "nom": "Magnemite",
+  "Caterpie": {
+    "nom": "Caterpie",
+    "niveau": 2,
+    "images": "caterpie.png",
+    "type_dattaque": "eau",
+    "point_de_vie": 70,
+    "puissance_dattaque": 30,
+    "defense": 10
+  },
+  "Butterfree": {
+    "nom": "Butterfree",
+    "niveau": 1,
+    "images": "butterfree.png",
+    "type_dattaque": "eau",
+    "point_de_vie": 60,
+    "puissance_dattaque": 30,
+    "defense": 10
+  },
+  "Bulbasaur": {
+    "nom": "Bulbasaur",
     "niveau": 5,
-    "type": {
-      "nom": "Électrique",
-      "points_de_vie": 40,
-      "puissance_attaque": 60,
-      "defense": 30
-    },
-    "images": "p12.png"
+    "images": "bulbasaur.png",
+    "type_dattaque": "eau",
+    "point_de_vie": 90,
+    "puissance_dattaque": 40,
+    "defense": 20
   },
-  "pokemon13": {
-    "nom": "Clefairy",
-    "niveau": 6,
-    "type": {
-      "nom": "Fée",
-      "points_de_vie": 60,
-      "puissance_attaque": 25,
-      "defense": 30
-    },
-    "images": "p13.png"
+  "Blastoise": {
+    "nom": "Blastoise",
+    "niveau": 2,
+    "images": "blastoise.png",
+    "type_dattaque": "eau",
+    "point_de_vie": 80,
+    "puissance_dattaque": 20,
+    "defense": 10
   },
-  "pokemon14": {
-    "nom": "Vulpix",
-    "niveau": 5,
-    "type": {
-      "nom": "Feu",
-      "points_de_vie": 50,
-      "puissance_attaque": 35,
-      "defense": 20
-    },
-    "images": "p14.png"
-  },
-  "pokemon15": {
-    "nom": "Ekans",
-    "niveau": 8,
-    "type": {
-      "nom": "Poison",
-      "points_de_vie": 55,
-      "puissance_attaque": 40,
-      "defense": 25
-    },
-    "images": "p15.png"
-  },
-  "pokemon16": {
-    "nom": "Nidoran",
-    "niveau": 6,
-    "type": {
-      "nom": "Poison",
-      "points_de_vie": 45,
-      "puissance_attaque": 50,
-      "defense": 25
-    },
-    "images": "p16.png"
-  },
-  "pokemon17": {
-    "nom": "Jigglypuff",
-    "niveau": 7,
-    "type": {
-      "nom": "Fée",
-      "points_de_vie": 70,
-      "puissance_attaque": 25,
-      "defense": 30
-    },
-    "images": "p17.png"
-  },
-  "pokemon18": {
-    "nom": "Oddish",
-    "niveau": 5,
-    "type": {
-      "nom": "Plante",
-      "points_de_vie": 55,
-      "puissance_attaque": 30,
-      "defense": 25
-    },
-    "images": "p18.png"
+  "Beedrill": {
+    "nom": "Beedrill",
+    "niveau": 2,
+    "images": "beedrill.png",
+    "type_dattaque": "feu",
+    "point_de_vie": 90,
+    "puissance_dattaque": 10,
+    "defense": 60
   }
 }

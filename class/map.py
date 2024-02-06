@@ -38,14 +38,14 @@ class Joueur:
         return dx, dy
 
 images_paths = [
-    "images/p1.png",
+    "images/beedrill.png",
     # Ajoutez d'autres chemins d'images Pokémon ici
 ]
 
 pokemon_positions = [
     (100, 100),
-    (200, 150),
-    (300, 200),
+    (200, 100),
+    (300, 100),
     (400, 250),
     (500, 300),
     (100, 350),
