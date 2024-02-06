@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"nom": "Beedrill", "images": "beedrill.png", "niveau": 5, "type_dattaque": "feu", "point_de_vie": 90, "puissance_dattaque": 10, "defense": 60}
-=======
-{"nom": "Bulbasaur", "images": "bulbasaur.png", "niveau": 4, "type_dattaque": "eau", "point_de_vie": 90, "puissance_dattaque": 40, "defense": 20}
->>>>>>> combat
+{"nom": "Squirtle", "images": "squirtle.png", "niveau": 1, "type_dattaque": "eau", "point_de_vie": 100, "puissance_dattaque": 50, "defense": 20}
