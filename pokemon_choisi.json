@@ -1,1 +1,1 @@
-{"nom": "Bulbasaur", "images": "bulbasaur.png", "niveau": 4, "type_dattaque": "eau", "point_de_vie": 90, "puissance_dattaque": 40, "defense": 20}
+{"nom": "Metapod", "images": "metapod.png", "niveau": 5, "type_dattaque": "feu", "point_de_vie": 100, "puissance_dattaque": 40, "defense": 20}
