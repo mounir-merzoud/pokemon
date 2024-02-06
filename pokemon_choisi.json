@@ -1,1 +1,1 @@
-{"nom": "Metapod", "images": "metapod.png", "niveau": 5, "type_dattaque": "feu", "point_de_vie": 100, "puissance_dattaque": 40, "defense": 20}
+{"nom": "Pidgeot", "images": "pidgeot.png", "niveau": 2, "type_dattaque": "terre", "point_de_vie": 90, "puissance_dattaque": 20, "defense": 10}
