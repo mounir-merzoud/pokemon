@@ -1,1 +1,1 @@
-{"nom": "Charizard", "images": "charizard.png", "niveau": 1, "type_dattaque": "feu", "point_de_vie": 90, "puissance_dattaque": 10, "defense": 20}
+{"nom": "Kakuna", "images": "kakuna.png", "niveau": 3, "type_dattaque": "terre", "point_de_vie": 70, "puissance_dattaque": 20, "defense": 10}
