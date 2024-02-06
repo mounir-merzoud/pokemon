@@ -1,1 +1,1 @@
-{"nom": "Charmander", "images": "charmander.png", "niveau": 4, "type_dattaque": "feu", "point_de_vie": 60, "puissance_dattaque": 20, "defense": 30}
+{"nom": "Squirtle", "images": "squirtle.png", "niveau": 4, "type_dattaque": "eau", "point_de_vie": 100, "puissance_dattaque": 50, "defense": 20}
