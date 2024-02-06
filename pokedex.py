@@ -1,6 +1,6 @@
 import pygame
 import json
-#from combat import *
+#from combat import combat 
 
 class Pokedex:
     
@@ -36,8 +36,7 @@ class Pokedex:
                 self.pokedex.append(self.pokemon)
     
             
-        
-    
+
         
         
        
