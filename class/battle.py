@@ -1,11 +1,12 @@
+# battle.py
 import pygame
 import sys
 from choix_de_pokemon import GestionPokemon
 from barre_de_vie import *
-
+import random
 
 class Battle:
-    def __init__(self):
+    def __init__(self, pokedex_instance):
         pygame.init()
 
         self.largeur_fenetre = 800
@@ -17,6 +18,8 @@ class Battle:
         self.gestion_pokemon = GestionPokemon("donnees_pokemon.json", self.hauteur_fenetre)
 
         self.font = pygame.font.Font(None, 24)
+
+        self.pokedex_instance = pokedex_instance
 
         self.pokemon1_attaque = False
         self.pokemon2_attaque = False
@@ -51,11 +54,17 @@ class Battle:
 
     def determiner_gagnant(self):
         if self.pokemon1['point_de_vie'] <= 0 and self.pokemon2['point_de_vie'] > 0:
-            return self.pokemon2['nom']
+            return self.pokemon2
         elif self.pokemon2['point_de_vie'] <= 0 and self.pokemon1['point_de_vie'] > 0:
-            return self.pokemon1['nom']
+            return self.pokemon1
         else:
-            return "Match nul"
+            return None
+
+    def pokemon_rencontre(self):
+        pokemons_disponibles = ['Pikachu', 'Bulbasaur', 'Charmander', 'Squirtle']  # Liste des Pokémon disponibles
+        pokemon_rencontre = random.choice(pokemons_disponibles)  # Choix aléatoire d'un Pokémon
+        self.pokedex_instance.add_to_pokedex(pokemon_rencontre)  # Ajouter le Pokémon rencontré au Pokédex
+        return pokemon_rencontre
 
     def run(self):
         while True:
@@ -154,12 +163,16 @@ class Battle:
             pygame.display.flip()
 
             gagnant = self.determiner_gagnant()
-            if gagnant != "Match nul":
-                print(f"Le gagnant est {gagnant}!")
+            if gagnant:
+                print(f"Le gagnant est {gagnant['nom']}!")
+                perdant = self.pokemon1 if gagnant != self.pokemon1 else self.pokemon2
+                self.pokedex_instance.add_to_pokedex(gagnant['nom'])
+                self.pokedex_instance.add_to_pokedex(perdant['nom'])
             else:
                 print("Match nul!")
 
-
 if __name__ == "__main__":
-    battle_instance = Battle()
+    from pokedex import Pokedex
+    pokedex = Pokedex()
+    battle_instance = Battle(pokedex)
     battle_instance.run()

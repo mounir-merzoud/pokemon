@@ -47,8 +47,18 @@ class Menu:
         gestion_pokemon.run(self.screen)
 
     def Acceder_pokedex(self):
-        print("Entrer sur le Pokédex")
+        from pokedex import Pokedex
+        pokedex = Pokedex()
+        pokedex.pokemon_debut()  # Ajouter les Pokémon de début au Pokédex
+        pokedex.ajouter_pokemon_rencontre(pokedex)  # Passer l'instance du Pokédex comme argument
 
+    def Combat(self):
+        from pokedex import Pokedex
+        from battle import Battle
+        pokedex = Pokedex()
+        battle_instance = Battle(pokedex)
+        battle_instance.run()
+        
     def Quitter_partie(self):
         pygame.quit()
         sys.exit()
