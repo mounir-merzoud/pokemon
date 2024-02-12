@@ -4,10 +4,9 @@ import json
 import os
 import sys
 
-
 pygame.init()
 
-# Parametres de la fenetre
+# Paramètres de la fenêtre
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 FPS = 30
@@ -115,6 +114,11 @@ def draw_board():
     window.fill(WHITE)
     pygame.draw.rect(window, (0, 0, 0), (50, 50, WINDOW_WIDTH - 100, WINDOW_HEIGHT - 100), 2)
 
+# Vérifier l'existence du fichier 'pokedex.json'
+if not os.path.exists('pokedex.json'):
+    print("Erreur: le fichier 'pokedex.json' est introuvable.")
+    sys.exit()
+
 # Chargement des données depuis les fichiers JSON
 with open('pokedex.json', 'r') as f:
     pokedex_data = json.load(f)
@@ -122,9 +126,9 @@ with open('pokedex.json', 'r') as f:
 with open('donnees_pokemon.json', 'r') as f:
     pokemon_data = json.load(f)
 
-
-
-
+# Création des Pokémon
+dracaufeu = Pokemon("Dracaufeu", "Feu", 50, Weapon("Flamme", 40), Defense("Armure", 20), 100, 300)
+leviator = Pokemon("Leviator", "Eau", 50, Weapon("Hydrocanon", 45), Defense("Ecailles", 25), 700, 300)
 
 # Boucle de jeu
 running = True
@@ -151,8 +155,18 @@ while running:
     result = dracaufeu.attack(leviator)
     draw_text(result, 20, 20, BLACK)
 
+    # Vérifier si le Pokémon attaqué a perdu tous ses points de vie
+    if leviator.health <= 0:
+        draw_text(f"{leviator.name} a perdu le combat !", 20, 50, BLACK)
+        running = False
+
     result = leviator.attack(dracaufeu)
     draw_text(result, 50, 80, BLACK)
+
+    # Vérifier si le Pokémon attaqué a perdu tous ses points de vie
+    if dracaufeu.health <= 0:
+        draw_text(f"{dracaufeu.name} a perdu le combat !", 20, 110, BLACK)
+        running = False
 
     # Rendu du plateau de jeu
     draw_board()
@@ -164,4 +178,3 @@ while running:
     # Mis à jour de l'affichage
     pygame.display.flip()
     clock.tick(FPS)
-

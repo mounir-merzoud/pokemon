@@ -3,7 +3,6 @@ import sys
 from choix_de_pokemon import GestionPokemon
 from barre_de_vie import *
 
-
 class Battle:
     def __init__(self):
         pygame.init()
@@ -163,3 +162,4 @@ class Battle:
 if __name__ == "__main__":
     battle_instance = Battle()
     battle_instance.run()
+
