@@ -1,35 +1,20 @@
 [
   {
-    "nom": "Salameche",
+    "nom": "Weedle",
     "niveau": 5,
-    "type": {
-      "nom": "Feu",
-      "points_de_vie": 100,
-      "puissance_attaque": 30,
-      "defense": 20
-    },
-    "images": "p1.png"
+    "images": "weedle.png",
+    "type_dattaque": "terre",
+    "point_de_vie": 75,
+    "puissance_dattaque": 25,
+    "defense": 30
   },
   {
-    "nom": "Carapuce",
-    "niveau": 5,
-    "type": {
-      "nom": "Eau",
-      "points_de_vie": 120,
-      "puissance_attaque": 25,
-      "defense": 25
-    },
-    "images": "p2.png"
-  },
-  {
-    "nom": "G\u00e9odude",
-    "niveau": 10,
-    "type": {
-      "nom": "Terre",
-      "points_de_vie": 80,
-      "puissance_attaque": 40,
-      "defense": 10
-    },
-    "images": "p3.jpg"
+    "nom": "Venusaur",
+    "niveau": 1,
+    "images": "venusaur.png",
+    "type_dattaque": "terre",
+    "point_de_vie": 90,
+    "puissance_dattaque": 20,
+    "defense": 60
   }
 ]
