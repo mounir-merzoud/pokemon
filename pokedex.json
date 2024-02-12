@@ -1,20 +1,20 @@
 [
   {
-    "nom": "Weedle",
-    "niveau": 5,
-    "images": "weedle.png",
-    "type_dattaque": "terre",
-    "point_de_vie": 75,
-    "puissance_dattaque": 25,
-    "defense": 30
+    "nom": "Wartortle",
+    "niveau": 2,
+    "images": "wartortle.png",
+    "type_dattaque": "eau",
+    "point_de_vie": 100,
+    "puissance_dattaque": 20,
+    "defense": 20
   },
   {
-    "nom": "Venusaur",
-    "niveau": 1,
-    "images": "venusaur.png",
-    "type_dattaque": "terre",
+    "nom": "Charizard",
+    "niveau": 3,
+    "images": "charizard.png",
+    "type_dattaque": "feu",
     "point_de_vie": 90,
-    "puissance_dattaque": 20,
-    "defense": 60
+    "puissance_dattaque": 10,
+    "defense": 20
   }
 ]
