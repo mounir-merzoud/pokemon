@@ -147,18 +147,17 @@ class GestionPokemon:
                     pokemon_aleatoire_nom = random.choice(pokemon_noms)
                     adversaire_aleatoire = data[pokemon_aleatoire_nom]
                     pokemon_choisi = {
-    'nom': pokemon_aleatoire_nom,
-    'images': adversaire_aleatoire.get('images', 'p.png'),
-    'niveau': random.choice([1, 2, 3, 4, 5]),
-    'type_dattaque': adversaire_aleatoire.get('type_dattaque', ''),
-    'point_de_vie': adversaire_aleatoire.get('point_de_vie', ''),
-    'puissance_dattaque': adversaire_aleatoire.get('puissance_dattaque', ''),
-    'defense': adversaire_aleatoire.get('defense', '')
-}
-
+                        'nom': pokemon_aleatoire_nom,
+                        'images': adversaire_aleatoire.get('images', 'p.png'),
+                        'niveau': random.choice([1, 2, 3, 4, 5]),
+                        'type_dattaque': adversaire_aleatoire.get('type_dattaque', ''),
+                        'point_de_vie': adversaire_aleatoire.get('point_de_vie', ''),
+                        'puissance_dattaque': adversaire_aleatoire.get('puissance_dattaque', ''),
+                        'defense': adversaire_aleatoire.get('defense', '')
+                    }
 
                     # Enregistrer les informations du Pokémon choisi dans un fichier JSON
-                    with open("pokemon_choisi.json", 'w') as pokemon_file:
+                    with open("pokemon_choisi_aleatoirement.json", 'w') as pokemon_file:
                         json.dump(pokemon_choisi, pokemon_file)
 
                     return pokemon_choisi
@@ -211,6 +210,7 @@ if __name__ == "__main__":
     pygame.display.set_caption("Choix de Pokémon")
 
     gestion_pokemon = GestionPokemon("donnees_pokemon.json", hauteur_fenetre)
+    gestion_pokemon.charger_pokemon_choisi_aleatoirement("pokemon_choisi_aleatoirement.json")  # Charger le Pokémon choisi aléatoirement
     gestion_pokemon.run(fenetre)
     pygame.quit()
     sys.exit()
