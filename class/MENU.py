@@ -1,14 +1,15 @@
-import pygame  # Importation de la bibliothèque Pygame
-import sys  # Importation du module sys pour les opérations système
-from choix_de_pokemon import *  # Importation de classes ou fonctions depuis le fichier "choix_de_pokemon.py"
+import pygame
+import sys
+from choix_de_pokemon import *
 
-class Menu:  # Définition de la classe Menu
-    def __init__(self):  # Définition du constructeur de classe
-        pygame.init()  # Initialisation de Pygame
+
+class Menu:
+    def __init__(self):
+        pygame.init()
 
         # Définir la taille de la fenêtre
         self.screen = pygame.display.set_mode((800, 620))
-        pygame.display.set_caption("Menu")  # Définir le titre de la fenêtre
+        pygame.display.set_caption("Menu")
 
         # Charger l'image de fond
         self.bg = pygame.image.load("images/background.jpeg")
@@ -16,12 +17,12 @@ class Menu:  # Définition de la classe Menu
         # Définir la police et la taille du texte
         self.font = pygame.font.Font(pygame.font.get_default_font(), 36)
 
-        # Définition des couleurs utilisées dans le menu
+        # Couleurs
         self.white = (255, 255, 255)
         self.black = (0, 0, 0)
         self.red = (255, 0, 0)
 
-        # Position et texte des boutons du menu
+        # Position et texte des boutons
         self.button_positions = {
             'Nouvelle_partie': (50, 50),
             'Choisir_pokemon': (50, 100),
@@ -29,7 +30,7 @@ class Menu:  # Définition de la classe Menu
             'Quitter_partie': (50, 200)
         }
 
-        # Définition des actions associées à chaque bouton
+        # Définir les actions des boutons
         self.button_actions = {
             'Nouvelle_partie': self.Nouvelle_partie,
             'Choisir_pokemon': self.Choisir_pokemon,
@@ -37,71 +38,47 @@ class Menu:  # Définition de la classe Menu
             'Quitter_partie': self.Quitter_partie
         }
 
-    # Méthodes pour les actions des boutons
-    def Nouvelle_partie(self):  # Action pour le bouton "Nouvelle_partie"
-        from map import Map  # Importation de la classe Map
-        nouvelle_partie_map = Map()  # Création d'une instance de la classe Map
-        nouvelle_partie_map.run()  # Exécution de la méthode run de l'instance Map
+    def Nouvelle_partie(self):
+        from map import Map
+        nouvelle_partie_map = Map()
+        nouvelle_partie_map.run()
 
-    def Choisir_pokemon(self):  # Action pour le bouton "Choisir_pokemon"
-        gestion_pokemon = GestionPokemon("donnees_pokemon.json", 620)  # Création d'une instance de la classe GestionPokemon
-        gestion_pokemon.run(self.screen)  # Exécution de la méthode run de l'instance GestionPokemon
+    def Choisir_pokemon(self):
+        gestion_pokemon = GestionPokemon("donnees_pokemon.json", 620)
+        gestion_pokemon.run(self.screen)
 
-<<<<<<< HEAD
     def Acceder_pokedex(self):
-        from pokedex import Pokedex
-        pokedex = Pokedex()
-        pokedex.pokemon_debut()  # Ajouter les Pokémon de début au Pokédex
-        pokedex.ajouter_pokemon_rencontre(pokedex)  # Passer l'instance du Pokédex comme argument
+        print("Entrer sur le Pokédex")
 
-    def Combat(self):
-        from pokedex import Pokedex
-        from battle import Battle
-        pokedex = Pokedex()
-        battle_instance = Battle(pokedex)
-        battle_instance.run()
-        
     def Quitter_partie(self):
         pygame.quit()
         sys.exit()
-=======
-    def Acceder_pokedex(self):  # Action pour le bouton "Acceder_pokedex"
-        print("Entrer sur le Pokédex")
 
-    def Quitter_partie(self):  # Action pour le bouton "Quitter_partie"
-        pygame.quit()  # Fermeture de Pygame
-        sys.exit()  # Sortie du programme
->>>>>>> main
-
-    # Vérifier si la souris survole un bouton
     def check_button_hover(self, mouse_pos, button_rect):
         return button_rect.collidepoint(mouse_pos)
 
-    # Gérer les clics de bouton
     def handle_button_click(self, button_name):
         if button_name in self.button_actions:
             self.button_actions[button_name]()
 
-    # Boucle principale du menu
     def run(self):
         while True:
             # Afficher l'arrière-plan
             self.screen.blit(self.bg, (0, 0))
 
-            for event in pygame.event.get():  # Parcourir les événements pygame
-                if event.type == pygame.QUIT:  # Si l'événement est de quitter la fenêtre
-                    self.Quitter_partie()  # Appeler la méthode Quitter_partie
-
-                elif event.type == pygame.MOUSEBUTTONDOWN:  # Si un bouton de la souris est cliqué
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.Quitter_partie()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
                     for button_name, button_position in self.button_positions.items():
                         # Correction : Utilisation de self.font.size pour obtenir la taille du texte
                         button_rect = pygame.Rect(button_position, self.font.size(button_name))
                         if button_rect.collidepoint(event.pos):
                             self.handle_button_click(button_name)
 
-            mouse_pos = pygame.mouse.get_pos()  # Obtenir la position actuelle de la souris
+            mouse_pos = pygame.mouse.get_pos()
 
-            # Mettre à jour la couleur du texte et du fond en fonction du survol
+            # Mettez à jour la couleur du texte et du fond en fonction du survol
             for button_name, button_position in self.button_positions.items():
                 # Correction : Utilisation de self.font.size pour obtenir la taille du texte
                 button_rect = pygame.Rect(button_position, self.font.size(button_name))
@@ -131,8 +108,8 @@ class Menu:  # Définition de la classe Menu
                 else:
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
-            pygame.display.flip()  # Mettre à jour l'affichage
+            pygame.display.flip()
 
 if __name__ == "__main__":
-    menu = Menu()  # Création d'une instance de la classe Menu
-    menu.run()  # Exécution de la méthode run de l'instance Menu
+    menu = Menu()
+    menu.run()

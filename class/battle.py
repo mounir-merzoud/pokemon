@@ -1,23 +1,40 @@
-# battle.py
 import pygame
 import json
 import sys
-<<<<<<< HEAD
-from choix_de_pokemon import GestionPokemon
-from barre_de_vie import *
-import random
-=======
 import random
 
 from barre_de_vie import BarreDeVie
 from pokemon import Pokemon
 from choix_de_pokemon import Menu
-from pokedex import*
 
->>>>>>> main
+class Pokedex:
+    def __init__(self, fichier_pokedex):
+        self.fichier_pokedex = fichier_pokedex
+
+    def charger_pokedex(self):
+        try:
+            with open(self.fichier_pokedex, "r") as fichier:
+                data = fichier.read()
+                if data:
+                    return json.loads(data)
+                else:
+                    print("Le fichier pokedex.json est vide.")
+                    return []
+        except FileNotFoundError:
+            print("Le fichier pokedex.json n'existe pas.")
+            return []
+        except json.decoder.JSONDecodeError:
+            print("Le fichier pokedex.json contient des données invalides.")
+            return []
+
+    def enregistrer_pokemon_perdant(self, pokemon_perdant):
+        pokedex = self.charger_pokedex()
+        pokedex.append(pokemon_perdant)
+        with open(self.fichier_pokedex, "w") as fichier:
+            json.dump(pokedex, fichier)
 
 class Battle:
-    def __init__(self, pokedex_instance):
+    def __init__(self):
         pygame.init()
 
         self.largeur_fenetre = 800
@@ -28,16 +45,9 @@ class Battle:
 
         self.font = pygame.font.Font(None, 24)
 
-<<<<<<< HEAD
-        self.pokedex_instance = pokedex_instance
-
-        self.pokemon1_attaque = False
-        self.pokemon2_attaque = False
-=======
         # Chargement de l'image de fond
         self.image_fond = pygame.image.load("images/background.png")
         self.image_fond = pygame.transform.scale(self.image_fond, (self.largeur_fenetre, self.hauteur_fenetre))
->>>>>>> main
 
         self.pokemon1 = None
         self.pokemon2 = None
@@ -49,15 +59,6 @@ class Battle:
         self.temps_depart = pygame.time.get_ticks()  # Heure de début du combat
 
         self.pokedex = Pokedex("pokedex.json")
-
-        # Position d'affichage du nom du Pokémon gagnant et perdant
-        self.position_nom_gagnant_perdant = (self.largeur_fenetre // 2, 50)
-
-    def afficher_nom_gagnant_perdant(self, gagnant, perdant):
-        nom_gagnant = self.font.render(f"Gagnant: {gagnant}", True, (0, 255, 0))
-        nom_perdant = self.font.render(f"Perdant: {perdant}", True, (255, 0, 0))
-        self.fenetre.blit(nom_gagnant, (self.position_nom_gagnant_perdant[0] - nom_gagnant.get_width() // 2, self.position_nom_gagnant_perdant[1]))
-        self.fenetre.blit(nom_perdant, (self.position_nom_gagnant_perdant[0] - nom_perdant.get_width() // 2, self.position_nom_gagnant_perdant[1] + 30))
 
     def charger_pokemon(self, nom_pokemon, donnees_pokemon):
         if nom_pokemon in donnees_pokemon:
@@ -90,25 +91,12 @@ class Battle:
         return degat
 
     def determiner_gagnant(self):
-<<<<<<< HEAD
-        if self.pokemon1['point_de_vie'] <= 0 and self.pokemon2['point_de_vie'] > 0:
-            return self.pokemon2
-        elif self.pokemon2['point_de_vie'] <= 0 and self.pokemon1['point_de_vie'] > 0:
-            return self.pokemon1
-=======
         if self.pokemon1.point_de_vie <= 0 and self.pokemon2.point_de_vie > 0:
             return self.pokemon2.nom
         elif self.pokemon2.point_de_vie <= 0 and self.pokemon1.point_de_vie > 0:
             return self.pokemon1.nom
->>>>>>> main
         else:
-            return None
-
-    def pokemon_rencontre(self):
-        pokemons_disponibles = ['Pikachu', 'Bulbasaur', 'Charmander', 'Squirtle']  # Liste des Pokémon disponibles
-        pokemon_rencontre = random.choice(pokemons_disponibles)  # Choix aléatoire d'un Pokémon
-        self.pokedex_instance.add_to_pokedex(pokemon_rencontre)  # Ajouter le Pokémon rencontré au Pokédex
-        return pokemon_rencontre
+            return "Match nul"
 
     def run(self):
         with open("pokemon_choisi_aleatoirement.json", "r") as file1, open("pokemon_selectionne.json", "r") as file2:
@@ -171,28 +159,13 @@ class Battle:
             pygame.display.flip()
 
             gagnant = self.determiner_gagnant()
-<<<<<<< HEAD
-            if gagnant:
-                print(f"Le gagnant est {gagnant['nom']}!")
-                perdant = self.pokemon1 if gagnant != self.pokemon1 else self.pokemon2
-                self.pokedex_instance.add_to_pokedex(gagnant['nom'])
-                self.pokedex_instance.add_to_pokedex(perdant['nom'])
-            else:
-                print("Match nul!")
-
-=======
             if gagnant != "Match nul":
                 print(f"Le gagnant est {gagnant}!")
                 self.pokedex.enregistrer_pokemon_perdant(gagnant)
-                # Afficher le nom du gagnant et du perdant en haut de la fenêtre
-                self.afficher_nom_gagnant_perdant(gagnant, self.pokemon1.nom if gagnant == self.pokemon2.nom else self.pokemon2.nom)
                 break
 
             pygame.time.delay(100)  # Délai pour limiter le taux de rafraîchissement de l'affichage
 
->>>>>>> main
 if __name__ == "__main__":
-    from pokedex import Pokedex
-    pokedex = Pokedex()
-    battle_instance = Battle(pokedex)
+    battle_instance = Battle()
     battle_instance.run()
