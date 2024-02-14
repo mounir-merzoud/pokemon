@@ -1,1 +1,1 @@
-{"selected_pokemon": {"nom": "Charmander", "niveau": 1, "images": "charmander.png", "type_dattaque": "feu", "point_de_vie": 60, "puissance_dattaque": 20, "defense": 30}}
+{"selected_pokemon": {"nom": "Blastoise", "niveau": 2, "images": "blastoise.png", "type_dattaque": "eau", "point_de_vie": 80, "puissance_dattaque": 20, "defense": 10}}
