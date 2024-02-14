@@ -1,1 +1,1 @@
-{"selected_pokemon": {"nom": "Blastoise", "niveau": 2, "images": "blastoise.png", "type_dattaque": "eau", "point_de_vie": 80, "puissance_dattaque": 20, "defense": 10}}
+{"selected_pokemon": {"nom": "Squirtle", "niveau": 5, "images": "squirtle.png", "type_dattaque": "eau", "point_de_vie": 100, "puissance_dattaque": 50, "defense": 20}}
