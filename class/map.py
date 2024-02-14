@@ -1,7 +1,7 @@
 import pygame
 import sys
 from MENU import *
-from battle import*
+from battle import *
 
 pygame.init()
 
