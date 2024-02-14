@@ -1,1 +1,1 @@
-{"chosen_pokemon": {"nom": "Bulbasaur", "niveau": 5, "images": "bulbasaur.png", "type_dattaque": "eau", "point_de_vie": 90, "puissance_dattaque": 40, "defense": 20}}
+{"chosen_pokemon": {"nom": "Blastoise", "niveau": 2, "images": "blastoise.png", "type_dattaque": "eau", "point_de_vie": 80, "puissance_dattaque": 20, "defense": 10}}
