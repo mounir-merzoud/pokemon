@@ -1,8 +1,37 @@
 import pygame
+import json
 import sys
-from choix_de_pokemon import GestionPokemon
-from barre_de_vie import *
+import random
 
+from barre_de_vie import BarreDeVie
+from pokemon import Pokemon
+from choix_de_pokemon import Menu
+
+class Pokedex:
+    def __init__(self, fichier_pokedex):
+        self.fichier_pokedex = fichier_pokedex
+
+    def charger_pokedex(self):
+        try:
+            with open(self.fichier_pokedex, "r") as fichier:
+                data = fichier.read()
+                if data:
+                    return json.loads(data)
+                else:
+                    print("Le fichier pokedex.json est vide.")
+                    return []
+        except FileNotFoundError:
+            print("Le fichier pokedex.json n'existe pas.")
+            return []
+        except json.decoder.JSONDecodeError:
+            print("Le fichier pokedex.json contient des données invalides.")
+            return []
+
+    def enregistrer_pokemon_perdant(self, pokemon_perdant):
+        pokedex = self.charger_pokedex()
+        pokedex.append(pokemon_perdant)
+        with open(self.fichier_pokedex, "w") as fichier:
+            json.dump(pokedex, fichier)
 
 class Battle:
     def __init__(self):
@@ -14,151 +43,128 @@ class Battle:
         self.fenetre = pygame.display.set_mode((self.largeur_fenetre, self.hauteur_fenetre))
         pygame.display.set_caption("Battle")
 
-        self.gestion_pokemon = GestionPokemon("donnees_pokemon.json", self.hauteur_fenetre)
-
         self.font = pygame.font.Font(None, 24)
 
-        self.pokemon1_attaque = False
-        self.pokemon2_attaque = False
+        # Chargement de l'image de fond
+        self.image_fond = pygame.image.load("images/background.png")
+        self.image_fond = pygame.transform.scale(self.image_fond, (self.largeur_fenetre, self.hauteur_fenetre))
 
         self.pokemon1 = None
         self.pokemon2 = None
 
-        self.barre_vie_pokemon1 = BarreDeVie(20, 160, (0, 255, 0))  # Couleur verte pour le Pokémon 1
-        self.barre_vie_pokemon2 = BarreDeVie(400, 160, (255, 0, 0))  # Couleur rouge pour le Pokémon 2
+        self.barre_vie_pokemon1 = BarreDeVie(20, 160, (0, 255, 0))
+        self.barre_vie_pokemon2 = BarreDeVie(400, 160, (255, 0, 0))
+
+        self.temps_de_jeu = 120  # Durée du combat en secondes
+        self.temps_depart = pygame.time.get_ticks()  # Heure de début du combat
+
+        self.pokedex = Pokedex("pokedex.json")
+
+    def charger_pokemon(self, nom_pokemon, donnees_pokemon):
+        if nom_pokemon in donnees_pokemon:
+            pokemon_data = donnees_pokemon[nom_pokemon]
+            return Pokemon(**pokemon_data)
+        else:
+            print(f"Pokemon '{nom_pokemon}' non trouvé dans les données.")
+            return None
 
     def attaquer(self, attaquant, cible):
         degat = self.calculate_damage(attaquant, cible)
         print(f"Dégâts infligés : {degat}")
         self.apply_damage(cible, degat)
-        print(f"Points de vie de {cible['nom']} après attaque : {cible['point_de_vie']}")
+        print(f"Points de vie de {cible.nom} après attaque : {cible.point_de_vie}")
 
     def apply_damage(self, pokemon, damage):
-        print(f"Avant l'attaque - Points de vie de {pokemon['nom']} : {pokemon['point_de_vie']}")
-        pokemon["point_de_vie"] -= damage
-        print(f"Après l'attaque - Points de vie de {pokemon['nom']} : {pokemon['point_de_vie']}")
+        print(f"Avant l'attaque - Points de vie de {pokemon.nom} : {pokemon.point_de_vie}")
+        pokemon.point_de_vie -= damage
+        print(f"Après l'attaque - Points de vie de {pokemon.nom} : {pokemon.point_de_vie}")
 
     def calculate_damage(self, attaquant, cible):
-        if attaquant['type_dattaque'] == "eau":
+        if attaquant.type_dattaque == "eau":
             degat = 15
-        elif attaquant['type_dattaque'] == "terre":
+        elif attaquant.type_dattaque == "terre":
             degat = 10
-        elif attaquant['type_dattaque'] == "feu":
+        elif attaquant.type_dattaque == "feu":
             degat = 20
-        elif attaquant['type_dattaque'] == "normal":
+        elif attaquant.type_dattaque == "normal":
             degat = 5
         return degat
 
     def determiner_gagnant(self):
-        if self.pokemon1['point_de_vie'] <= 0 and self.pokemon2['point_de_vie'] > 0:
-            return self.pokemon2['nom']
-        elif self.pokemon2['point_de_vie'] <= 0 and self.pokemon1['point_de_vie'] > 0:
-            return self.pokemon1['nom']
+        if self.pokemon1.point_de_vie <= 0 and self.pokemon2.point_de_vie > 0:
+            return self.pokemon2.nom
+        elif self.pokemon2.point_de_vie <= 0 and self.pokemon1.point_de_vie > 0:
+            return self.pokemon1.nom
         else:
             return "Match nul"
 
     def run(self):
+        with open("pokemon_choisi_aleatoirement.json", "r") as file1, open("pokemon_selectionne.json", "r") as file2:
+            donnees_pokemon1 = json.load(file1)
+            donnees_pokemon2 = json.load(file2)
+
+        # Sélectionner un Pokémon au hasard à partir des données chargées
+        pokemon1_nom = random.choice(list(donnees_pokemon1.keys()))
+        pokemon2_nom = "selected_pokemon"  # Utilisation du nom du Pokémon sélectionné
+
+        # Charger les Pokémon à partir des données
+        self.pokemon1 = self.charger_pokemon(pokemon1_nom, donnees_pokemon1)
+        self.pokemon2 = self.charger_pokemon(pokemon2_nom, donnees_pokemon2)
+
         while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_LEFT:  # Touche gauche du clavier
-                        self.pokemon2_attaque = True
-                        self.pokemon1_attaque = False
-                    elif event.key == pygame.K_RIGHT:  # Touche droite du clavier
-                        self.pokemon1_attaque = True
-                        self.pokemon2_attaque = False
+            temps_ecoule = (pygame.time.get_ticks() - self.temps_depart) /1000 # Calcul du temps écoulé en secondes
 
-            pokemon1, pokemon2 = self.gestion_pokemon.charger_pokemon_combat("donnees_pokemon.json")
+            if temps_ecoule >= self.temps_de_jeu:
+                print("Le temps est écoulé!")
+                break
 
-            self.fenetre.fill((255, 255, 255))
+            # Affichage de l'image de fond
+            self.fenetre.blit(self.image_fond, (0, 0))
 
-            if pokemon1:
-                self.pokemon1 = pokemon1
-                self.barre_vie_pokemon1.update_vie(pokemon1['point_de_vie'])  # Met à jour la vie du Pokémon 1
-                self.barre_vie_pokemon1.afficher(self.fenetre, pokemon1['point_de_vie'])
-
-                nom_pokemon1 = pokemon1['nom']
-                niveau_pokemon1 = pokemon1['niveau']
-                chemin_image_pokemon1 = f"images/{pokemon1['images']}"
-                type_dattaque_pokemon1 = pokemon1['type_dattaque']
-
-                texte_nom_pokemon1 = self.font.render(f"Nom: {nom_pokemon1}", True, (0, 0, 0))
-                texte_niveau_pokemon1 = self.font.render(f"Niveau: {niveau_pokemon1}", True, (0, 0, 0))
-                texte_type_dattaque_pokemon1 = self.font.render(f"Type d'attaque: {type_dattaque_pokemon1}", True,
-                                                                 (0, 0, 0))
-
-                self.fenetre.blit(texte_nom_pokemon1, (20, 70))
-                self.fenetre.blit(texte_niveau_pokemon1, (20, 100))
-                self.fenetre.blit(texte_type_dattaque_pokemon1, (20, 130))
-
+            if self.pokemon1:
+                # Affichage du Pokémon 1
+                self.barre_vie_pokemon1.update_vie(self.pokemon1.point_de_vie)
+                self.barre_vie_pokemon1.afficher(self.fenetre, self.pokemon1.point_de_vie)
+                chemin_image_pokemon1 = f"images/{self.pokemon1.images}"  # Récupérer le chemin de l'image
                 image_pokemon1 = pygame.image.load(chemin_image_pokemon1)
                 image_pokemon1 = pygame.transform.scale(image_pokemon1, (100, 100))
-                self.fenetre.blit(image_pokemon1, (150, 350))
+                self.fenetre.blit(image_pokemon1, (60, 450))  # Afficher l'image du Pokémon
 
-            if pokemon2:
-                self.pokemon2 = pokemon2
-                self.barre_vie_pokemon2.update_vie(pokemon2['point_de_vie'])  # Met à jour la vie du Pokémon 2
-                self.barre_vie_pokemon2.afficher(self.fenetre, pokemon2['point_de_vie'])
-
-                nom_pokemon2 = pokemon2['nom']
-                niveau_pokemon2 = pokemon2['niveau']
-                chemin_image_pokemon2 = f"images/{pokemon2['images']}"
-                type_dattaque_pokemon2 = pokemon2['type_dattaque']
-
-                texte_nom_pokemon2 = self.font.render(f"Nom: {nom_pokemon2}", True, (0, 0, 0))
-                texte_niveau_pokemon2 = self.font.render(f"Niveau: {niveau_pokemon2}", True, (0, 0, 0))
-                texte_type_dattaque_pokemon2 = self.font.render(f"Type d'attaque: {type_dattaque_pokemon2}", True,
-                                                                 (0, 0, 0))
-
-                self.fenetre.blit(texte_nom_pokemon2, (400, 70))
-                self.fenetre.blit(texte_niveau_pokemon2, (400, 100))
-                self.fenetre.blit(texte_type_dattaque_pokemon2, (400, 130))
-
+            if self.pokemon2:
+                # Affichage du Pokémon 2
+                self.barre_vie_pokemon2.update_vie(self.pokemon2.point_de_vie)
+                self.barre_vie_pokemon2.afficher(self.fenetre, self.pokemon2.point_de_vie)
+                chemin_image_pokemon2 = f"images/{self.pokemon2.images}"  # Récupérer le chemin de l'image
                 image_pokemon2 = pygame.image.load(chemin_image_pokemon2)
                 image_pokemon2 = pygame.transform.scale(image_pokemon2, (100, 100))
-                self.fenetre.blit(image_pokemon2, (550, 350))
+                self.fenetre.blit(image_pokemon2, (550, 280))  # Afficher l'image du Pokémon
 
-            if self.pokemon2_attaque and self.pokemon1:
-                print(f"{self.pokemon2['nom']} attaque avec {self.pokemon2['type_dattaque']} ")
-                degat = self.calculate_damage(self.pokemon2, self.pokemon1)
-                self.apply_damage(self.pokemon1, degat)
-                if self.pokemon1:  # Vérification que pokemon1 est initialisé
-                    self.barre_vie_pokemon1.update_vie(self.pokemon1['point_de_vie'])
-                    self.barre_vie_pokemon1.afficher(self.fenetre, self.pokemon1['point_de_vie'])  # Affichage mis à jour
-                self.pokemon2_attaque = False
+            if self.pokemon2 and self.pokemon1:
+                print(f"{self.pokemon2.nom} attaque avec {self.pokemon2.type_dattaque}")
+                self.attaquer(self.pokemon2, self.pokemon1)
+                if self.pokemon1:
+                    self.barre_vie_pokemon1.update_vie(self.pokemon1.point_de_vie)
+                    self.barre_vie_pokemon1.afficher(self.fenetre, self.pokemon1.point_de_vie)
 
-            if self.pokemon1_attaque and self.pokemon2:
-                print(f"{self.pokemon1['nom']} attaque avec {self.pokemon1['type_dattaque']} !")
-                degat = self.calculate_damage(self.pokemon1, self.pokemon2)
-                self.apply_damage(self.pokemon2, degat)
-                if self.pokemon2:  # Vérification que pokemon2 est initialisé
-                    self.barre_vie_pokemon2.update_vie(self.pokemon2['point_de_vie'])
-                    self.barre_vie_pokemon2.afficher(self.fenetre, self.pokemon2['point_de_vie'])
-                self.pokemon1_attaque = False
+                pygame.time.delay(1000)  # Ajout d'un délai de 1 seconde entre les attaques
 
-            if self.pokemon2 and self.pokemon2['point_de_vie'] <= 0:
-                gagnant_surface = self.font.render(f"{self.pokemon1['nom']} a gagné!", True, (0, 255, 0))
-                perdant_surface = self.font.render(f"{self.pokemon2['nom']} a perdu!", True, (255, 0, 0))
-                self.fenetre.blit(gagnant_surface, (20, self.hauteur_fenetre - 50))
-                self.fenetre.blit(perdant_surface, (400, self.hauteur_fenetre - 50))
+                print(f"{self.pokemon1.nom} attaque avec {self.pokemon1.type_dattaque}")
+                self.attaquer(self.pokemon1, self.pokemon2)
+                if self.pokemon2:
+                    self.barre_vie_pokemon2.update_vie(self.pokemon2.point_de_vie)
+                    self.barre_vie_pokemon2.afficher(self.fenetre, self.pokemon2.point_de_vie)
 
-            if self.pokemon1 and self.pokemon1['point_de_vie'] <= 0:
-                gagnant_surface = self.font.render(f"{self.pokemon2['nom']} a gagné!", True, (0, 255, 0))
-                perdant_surface = self.font.render(f"{self.pokemon1['nom']} a perdu!", True, (255, 0, 0))
-                self.fenetre.blit(gagnant_surface, (20, self.hauteur_fenetre - 50))
-                self.fenetre.blit(perdant_surface, (400, self.hauteur_fenetre - 50))
+                pygame.time.delay(1000)  # Ajout d'un délai de 1 seconde entre les attaques
 
             pygame.display.flip()
 
             gagnant = self.determiner_gagnant()
             if gagnant != "Match nul":
                 print(f"Le gagnant est {gagnant}!")
-            else:
-                print("Match nul!")
+                self.pokedex.enregistrer_pokemon_perdant(gagnant)
+                break
 
+            pygame.time.delay(100)  # Délai pour limiter le taux de rafraîchissement de l'affichage
 
 if __name__ == "__main__":
     battle_instance = Battle()
