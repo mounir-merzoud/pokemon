@@ -2,6 +2,7 @@ import pygame
 import sys
 from choix_de_pokemon import *
 
+
 class Menu:
     def __init__(self):
         pygame.init()
