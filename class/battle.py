@@ -6,7 +6,9 @@ import random
 from barre_de_vie import BarreDeVie
 from pokemon import Pokemon
 from choix_de_pokemon import Menu
-from pokedex import *
+from pokedex import*
+
+
 class Battle:
     def __init__(self):
         pygame.init()
