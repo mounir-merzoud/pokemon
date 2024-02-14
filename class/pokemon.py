@@ -1,120 +1,34 @@
-import pygame
-import sys
-import json
+class Pokemon:  # Définition de la classe Pokemon
+    def __init__(self, nom, images, niveau, type_dattaque, point_de_vie, puissance_dattaque, defense):
+        # Méthode d'initialisation de la classe Pokemon avec ses attributs
+        self.nom = nom  # Attribut pour stocker le nom du Pokémon
+        self.images = images  # Attribut pour stocker le chemin vers l'image du Pokémon
+        self.niveau = niveau  # Attribut pour stocker le niveau du Pokémon
+        self.type_dattaque = type_dattaque  # Attribut pour stocker le type d'attaque du Pokémon
+        self.point_de_vie = point_de_vie  # Attribut pour stocker les points de vie du Pokémon
+        self.puissance_dattaque = puissance_dattaque  # Attribut pour stocker la puissance d'attaque du Pokémon
+        self.defense = defense  # Attribut pour stocker la défense du Pokémon
 
-class Pokemon:
-    def __init__(self, nom, niveau, chemin_image, type_dattaque, point_de_vie, puissance_dattaque, defense):
-        self.nom = nom
-        self.niveau = niveau
-        self.chemin_image = chemin_image
-        self.type_dattaque = type_dattaque
-        self.point_de_vie = point_de_vie
-        self.puissance_dattaque = puissance_dattaque
-        self.defense = defense
+    def attaquer(self, cible):
+        # Méthode pour faire attaquer le Pokémon à une cible
+        degat = self.calculate_damage(cible)  # Calcul des dégâts infligés à la cible par le Pokémon
+        print(f"{self.nom} attaque avec {self.type_dattaque} ! Dégâts infligés : {degat}")  # Affichage de l'attaque et des dégâts infligés
+        cible.apply_damage(degat)  # Application des dégâts à la cible
 
-    @classmethod
-    def charger_depuis_json(cls, nom_fichier):
-        pokemons = []
-        with open(nom_fichier, 'r') as f:
-            data = json.load(f)
-            for pokemon_data in data['pokemons']:
-                pokemon = cls(
-                    pokemon_data['nom'],
-                    pokemon_data['niveau'],
-                    pokemon_data['chemin_image'],
-                    pokemon_data['type_dattaque'],
-                    pokemon_data['point_de_vie'],
-                    pokemon_data['puissance_dattaque'],
-                    pokemon_data['defense']
-                )
-                pokemons.append(pokemon)
-        return pokemons
+    def apply_damage(self, damage):
+        # Méthode pour appliquer les dégâts au Pokémon
+        print(f"Avant l'attaque - Points de vie de {self.nom} : {self.point_de_vie}")  # Affichage des points de vie avant l'attaque
+        self.point_de_vie -= damage  # Réduction des points de vie du Pokémon par les dégâts infligés
+        print(f"Après l'attaque - Points de vie de {self.nom} : {self.point_de_vie}")  # Affichage des points de vie après l'attaque
 
-class BarreDeVie:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.longueur_barre = 200
-        self.largeur_barre = 20
-
-    def afficher(self, surface, vie):
-        vie_max = 100
-        longueur_vie = int(self.longueur_barre * vie / vie_max)
-        pygame.draw.rect(surface, (0, 0, 0), (self.x, self.y, self.longueur_barre, self.largeur_barre), 2)
-        if vie > 0:
-            pygame.draw.rect(surface, (0, 255, 0), (self.x, self.y, longueur_vie, self.largeur_barre))
-
-class Battle:
-    def __init__(self):
-        pygame.init()
-        self.largeur_fenetre = 800
-        self.hauteur_fenetre = 600
-        self.fenetre = pygame.display.set_mode((self.largeur_fenetre, self.hauteur_fenetre))
-        pygame.display.set_caption("Battle")
-
-        self.pokemons = Pokemon.charger_depuis_json("donnees_pokemon.json")
-        self.font = pygame.font.Font(None, 24)
-
-        self.joueur = self.pokemons[0]  # Sélectionnez le premier Pokémon comme joueur
-        self.adversaire = self.pokemons[1]  # Sélectionnez le deuxième Pokémon comme adversaire
-
-        self.barre_de_vie_joueur = BarreDeVie(50, 50)
-        self.barre_de_vie_adversaire = BarreDeVie(500, 50)
-
-    def run(self):
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
-                        if 150 <= event.pos[0] <= 250 and 350 <= event.pos[1] <= 450:
-                            # Action du joueur lorsque le Pokémon est cliqué
-                            self.attaque(self.joueur, self.adversaire)
-                        elif 550 <= event.pos[0] <= 650 and 350 <= event.pos[1] <= 450:
-                            # Action de l'adversaire lorsque le Pokémon est cliqué
-                            self.attaque(self.adversaire, self.joueur)
-
-            self.fenetre.fill((255, 255, 255))
-
-            self.afficher_pokemon(self.joueur, 150, 350)
-            self.afficher_pokemon(self.adversaire, 550, 350)
-
-            pygame.display.flip()
-
-    def attaque(self, attaquant, cible):
-        print(f"{attaquant.nom} attaque avec {attaquant.type_dattaque} !")
-        # Appliquer les effets spécifiques de l'attaque en fonction du type
-        if attaquant.type_dattaque == 'terre':
-            cible.point_de_vie -= 5
-        elif attaquant.type_dattaque == 'eau':
-            cible.point_de_vie -= 15
-        elif attaquant.type_dattaque == 'feu':
-            cible.point_de_vie -= 20
-        elif attaquant.type_dattaque == 'normal':
-            cible.point_de_vie -= 10
-
-        # Mettre à jour les barres de vie
-        self.mettre_a_jour_barre_de_vie()
-
-    def mettre_a_jour_barre_de_vie(self):
-        self.barre_de_vie_joueur.afficher(self.fenetre, self.joueur.point_de_vie)
-        self.barre_de_vie_adversaire.afficher(self.fenetre, self.adversaire.point_de_vie)
-
-    def afficher_pokemon(self, pokemon, x, y):
-        texte_nom = self.font.render(f"Nom: {pokemon.nom}", True, (0, 0, 0))
-        texte_niveau = self.font.render(f"Niveau: {pokemon.niveau}", True, (0, 0, 0))
-        texte_type_dattaque = self.font.render(f"Type d'attaque: {pokemon.type_dattaque}", True, (0, 0, 0))
-
-        self.fenetre.blit(texte_nom, (x, y - 50))
-        self.fenetre.blit(texte_niveau, (x, y - 20))
-        self.fenetre.blit(texte_type_dattaque, (x, y))
-
-        image_pokemon = pygame.image.load(pokemon.chemin_image)
-        image_pokemon = pygame.transform.scale(image_pokemon, (100, 100))
-        self.fenetre.blit(image_pokemon, (x, y + 100))
-
-if __name__ == "__main__":
-    battle_instance = Battle()
-    battle_instance.run()
+    def calculate_damage(self, cible):
+        # Méthode pour calculer les dégâts infligés à la cible en fonction du type d'attaque du Pokémon
+        if self.type_dattaque == "eau":
+            degat = 15
+        elif self.type_dattaque == "terre":
+            degat = 10
+        elif self.type_dattaque == "feu":
+            degat = 20
+        elif self.type_dattaque == "normal":
+            degat = 5
+        return degat  # Retourne les dégâts calculés en fonction du type d'attaque du Pokémon

@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"chosen_pokemon": {"nom": "Pidgey", "niveau": 4, "images": "pidgey.png", "type_dattaque": "normal", "point_de_vie": 80, "puissance_dattaque": 30, "defense": 10}}
+=======
+{"chosen_pokemon": {"nom": "Charizard", "niveau": 3, "images": "charizard.png", "type_dattaque": "feu", "point_de_vie": 90, "puissance_dattaque": 10, "defense": 20}}
+>>>>>>> main
