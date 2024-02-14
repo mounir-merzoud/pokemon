@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"selected_pokemon": {"nom": "Wartortle", "niveau": 2, "images": "wartortle.png", "type_dattaque": "eau", "point_de_vie": 100, "puissance_dattaque": 20, "defense": 20}}
-=======
-{"selected_pokemon": {"nom": "Ivysaur", "niveau": 4, "images": "ivysaur.png", "type_dattaque": "normal", "point_de_vie": 110, "puissance_dattaque": 20, "defense": 30}}
->>>>>>> combat
+{"selected_pokemon": {"nom": "Charmander", "niveau": 1, "images": "charmander.png", "type_dattaque": "feu", "point_de_vie": 60, "puissance_dattaque": 20, "defense": 30}}
