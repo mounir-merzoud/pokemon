@@ -60,6 +60,15 @@ class Battle:
 
         self.pokedex = Pokedex("pokedex.json")
 
+        # Position d'affichage du nom du Pokémon gagnant et perdant
+        self.position_nom_gagnant_perdant = (self.largeur_fenetre // 2, 50)
+
+    def afficher_nom_gagnant_perdant(self, gagnant, perdant):
+        nom_gagnant = self.font.render(f"Gagnant: {gagnant}", True, (0, 255, 0))
+        nom_perdant = self.font.render(f"Perdant: {perdant}", True, (255, 0, 0))
+        self.fenetre.blit(nom_gagnant, (self.position_nom_gagnant_perdant[0] - nom_gagnant.get_width() // 2, self.position_nom_gagnant_perdant[1]))
+        self.fenetre.blit(nom_perdant, (self.position_nom_gagnant_perdant[0] - nom_perdant.get_width() // 2, self.position_nom_gagnant_perdant[1] + 30))
+
     def charger_pokemon(self, nom_pokemon, donnees_pokemon):
         if nom_pokemon in donnees_pokemon:
             pokemon_data = donnees_pokemon[nom_pokemon]
@@ -162,6 +171,8 @@ class Battle:
             if gagnant != "Match nul":
                 print(f"Le gagnant est {gagnant}!")
                 self.pokedex.enregistrer_pokemon_perdant(gagnant)
+                # Afficher le nom du gagnant et du perdant en haut de la fenêtre
+                self.afficher_nom_gagnant_perdant(gagnant, self.pokemon1.nom if gagnant == self.pokemon2.nom else self.pokemon2.nom)
                 break
 
             pygame.time.delay(100)  # Délai pour limiter le taux de rafraîchissement de l'affichage
